@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 const fruits = [
   {
     id: 1,
@@ -124,13 +124,21 @@ const DetailPage = () => {
         <hr />
         <h6 className="mt-5 font-semibold">Mô tả</h6>
         <p className="mt-2 mb-2">CHẢ LỤA TƯƠI LÀM TỪ THỊT HEO TƯƠI</p>
-        <p>
+        <p className="mb-3">
           {" "}
           <FontAwesomeIcon icon={faCheck} />
           Giò lụa không dùng hàn the mà lại chuẩn giòn dai, siêu ngon và hợp vệ
           sinh. Không chất bảo quản, đảm bảo luôn tươi mới khi đến tay khách
           hàng.
         </p>
+        <hr />
+        <button className="btn-buy border border-red-600 p-3 m-2 rounded-xl  text-red-600 font-medium">
+          <FontAwesomeIcon
+            className="icon mr-2 text-red-600"
+            icon={faCartShopping}
+          />{" "}
+          Mua ngay
+        </button>
       </div>
     </div>
   );
