@@ -1,0 +1,14 @@
+$color-main: rgb(30 41 59);
+
+.icon-header{
+    &:hover{
+        background-color: $color-main;
+        transition: 0.5s;
+       span{
+        color:  #fff;
+       }
+       .icon{
+        color: #fff;
+       }
+    }
+}
