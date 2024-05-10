@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const MenuComponent = () => {
-  const arrItem = ["Cà phê", "Sầu riêng", "Hạt điều"];
+  const arrItem = ["xoai", "mancau", "Sầu riêng", "Hạt điều"];
   return (
     <>
       <nav className="bg-white shadow dark:bg-gray-800">
@@ -23,7 +23,7 @@ const MenuComponent = () => {
           {arrItem.map((item, index) => (
             <Link
               key={index}
-              to="/blog"
+              to={`/product?type=${item}`}
               className="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 duration-700 mx-1.5 sm:mx-6"
             >
               {item}

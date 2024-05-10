@@ -6,7 +6,7 @@ function Slider() {
   const [xx, setXx] = useState(null);
 
   useEffect(() => {
-    $(window).ready(function () {
+    $(function () {
       $("#slider-2").hide();
       $("#sButton1").addClass("bg-purple-800");
 
@@ -45,7 +45,7 @@ function Slider() {
     setCont(1);
   }
   return (
-    <>
+    <div className="mt-2">
       <div className="sliderAx h-auto">
         <div id="slider-1" className="container mx-auto">
           <div
@@ -93,7 +93,7 @@ function Slider() {
           </div>
         </div>
       </div>
-      <div className="flex justify-between w-12 mx-auto pb-2">
+      <div className="flex justify-between w-12 mx-auto pb-2 mt-2">
         <button
           id="sButton1"
           onClick={sliderButton1}
@@ -105,7 +105,7 @@ function Slider() {
           className="bg-purple-400 rounded-full w-4 p-2"
         ></button>
       </div>
-    </>
+    </div>
   );
 }
 

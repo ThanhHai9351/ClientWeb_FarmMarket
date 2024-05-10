@@ -46,13 +46,13 @@ const HeaderComponent = () => {
         <div>
           <div className="flex justify-end mt-5 mr-7">
             <Link to="/login">
-              <button className="bg-slate-300 p-3 icon-header">
+              <button className="rounded-lg p-3 icon-header">
                 <FontAwesomeIcon icon={faUser} className="icon" />
                 <span className="mx-2">Đăng nhập</span>
               </button>
             </Link>
             <Link to="/shoppingcart">
-              <button className="mx-5 bg-slate-300 p-3 icon-header">
+              <button className="mx-5  p-3 icon-header rounded-lg">
                 <FontAwesomeIcon icon={faCartShopping} className="icon" />
                 <span className="mx-2">Giỏ hàng</span>
               </button>
