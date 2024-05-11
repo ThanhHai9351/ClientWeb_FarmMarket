@@ -1,17 +1,6 @@
 $color-main: rgb(30 41 59);
 $color-btn-buy: rgb(220 38 38 / var(--tw-text-opacity));
-.icon-header{
-    &:hover{
-        background-color: $color-main;
-        transition: 0.5s;
-       span{
-        color:  #fff;
-       }
-       .icon{
-        color: #fff;
-       }
-    }
-}
+
 
 .card-product{
     &:hover{

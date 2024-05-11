@@ -19,7 +19,7 @@ const HeaderComponent = () => {
         <p className="mx-20 text-slate-300 inline-block">hotline: 0384631254</p>
       </div>
       <div className="bg-slate-200 grid grid-cols-3 p-3">
-        <div className="inline-block">
+        <div className="inline-block ">
           <Link to="/">
             <img
               className="w-30 h-20 rounded-xl inline-block"
@@ -31,7 +31,7 @@ const HeaderComponent = () => {
             </h6>
           </Link>
         </div>
-        <div>
+        <div className="">
           <div className="w-96 rounded-lg p-2 bg-white mt-5">
             <input
               className="w-80 p-1"
@@ -43,18 +43,19 @@ const HeaderComponent = () => {
             </button>
           </div>
         </div>
-        <div>
+        <div className="">
           <div className="flex justify-end mt-5 mr-7">
             <Link to="/login">
-              <button className="rounded-lg p-3 icon-header">
-                <FontAwesomeIcon icon={faUser} className="icon" />
-                <span className="mx-2">Đăng nhập</span>
+              <button className=" hover:opacity-70 p-3 pr-4 px-4 rounded-3xl icon-header bg-slate-400">
+                <FontAwesomeIcon icon={faUser} className="icon text-lg" />
               </button>
             </Link>
             <Link to="/shoppingcart">
-              <button className="mx-5  p-3 icon-header rounded-lg">
-                <FontAwesomeIcon icon={faCartShopping} className="icon" />
-                <span className="mx-2">Giỏ hàng</span>
+              <button className="hover:opacity-70 mx-5 p-3 pr-4 px-4 icon-header rounded-3xl">
+                <FontAwesomeIcon
+                  icon={faCartShopping}
+                  className="icon text-lg"
+                />
               </button>
             </Link>
           </div>
