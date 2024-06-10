@@ -9,13 +9,9 @@ const CardComponent = (item) => {
     currency: "VND",
   }).format(card.price);
   return (
-    <Link to={`/product/detail/${card.id}`}>
+    <Link to={`/product/detail/${card._id}`}>
       <div className="w-56 card-product m-2 p-3">
-        <img
-          className="w-full"
-          src="https://product.hstatic.net/200000189007/product/xoai_cat_hoa_loc_-_1_kg_a8030c3d93294ffabf301f4059409710_master.jpg"
-          alt=""
-        />
+        <img className="w-full" src={card.image} alt="" />
         <p className="text-center">{card.name}</p>
         <p className="text-center font-bold">{formattedPrice}</p>
       </div>

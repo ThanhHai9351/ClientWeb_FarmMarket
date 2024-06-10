@@ -1,7 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    axios
+      .post(`${process.env.REACT_APP_BE}/user/login`, { email, password })
+      .then((res) => {
+        console.log(res.data.access_token);
+        localStorage.setItem("ustoken", res.data.access_token);
+        navigate("/");
+      })
+      .catch((err) => {});
+  };
+
   return (
     <div className="bg-grey-lighter min-h-screen flex flex-col">
       <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
@@ -12,6 +28,7 @@ const LoginPage = () => {
             className="block border border-grey-light w-full p-3 rounded mb-4"
             name="email"
             placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <input
@@ -19,8 +36,10 @@ const LoginPage = () => {
             className="block border border-grey-light w-full p-3 rounded mb-4"
             name="password"
             placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button
+            onClick={handleLogin}
             type="submit"
             className="w-full text-center py-3 rounded bg-green-600 text-white hover:bg-green-dark focus:outline-none my-1"
           >

@@ -1,93 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SliderComponent from "../../components/layout/SliderComponent/SliderComponent";
 import CardComponent from "../../components/CardComponent/CardComponent";
-
-const fruits = [
-  {
-    id: 1,
-    name: "Xoài",
-    price: 30000,
-    image:
-      "https://product.hstatic.net/200000189007/product/xoai_cat_hoa_loc_-_1_kg_a8030c3d93294ffabf301f4059409710_master.jpg",
-    type: "xoai",
-  },
-  {
-    id: 2,
-    name: "Xoài",
-    price: 30000,
-    image:
-      "https://product.hstatic.net/200000189007/product/xoai_cat_hoa_loc_-_1_kg_a8030c3d93294ffabf301f4059409710_master.jpg",
-    type: "xoai",
-  },
-  {
-    id: 3,
-    name: "Xoài",
-    price: 30000,
-    image:
-      "https://product.hstatic.net/200000189007/product/xoai_cat_hoa_loc_-_1_kg_a8030c3d93294ffabf301f4059409710_master.jpg",
-    type: "xoai",
-  },
-  {
-    id: 4,
-    name: "Xoài",
-    price: 30000,
-    image:
-      "https://product.hstatic.net/200000189007/product/xoai_cat_hoa_loc_-_1_kg_a8030c3d93294ffabf301f4059409710_master.jpg",
-    type: "xoai",
-  },
-  {
-    id: 5,
-    name: "Xoài",
-    price: 30000,
-    image:
-      "https://product.hstatic.net/200000189007/product/xoai_cat_hoa_loc_-_1_kg_a8030c3d93294ffabf301f4059409710_master.jpg",
-    type: "xoai",
-  },
-  {
-    id: 6,
-    name: "Xoài",
-    price: 30000,
-    image:
-      "https://product.hstatic.net/200000189007/product/xoai_cat_hoa_loc_-_1_kg_a8030c3d93294ffabf301f4059409710_master.jpg",
-    type: "xoai",
-  },
-  {
-    id: 7,
-    name: "Xoài",
-    price: 30000,
-    image:
-      "https://product.hstatic.net/200000189007/product/xoai_cat_hoa_loc_-_1_kg_a8030c3d93294ffabf301f4059409710_master.jpg",
-    type: "xoai",
-  },
-  {
-    id: 8,
-    name: "Xoài",
-    price: 30000,
-    image:
-      "https://product.hstatic.net/200000189007/product/xoai_cat_hoa_loc_-_1_kg_a8030c3d93294ffabf301f4059409710_master.jpg",
-    type: "xoai",
-  },
-  {
-    id: 9,
-    name: "Xoài",
-    price: 30000,
-    image:
-      "https://product.hstatic.net/200000189007/product/xoai_cat_hoa_loc_-_1_kg_a8030c3d93294ffabf301f4059409710_master.jpg",
-    type: "xoai",
-  },
-  {
-    id: 10,
-    name: "mancau",
-    price: 30000,
-    image:
-      "https://product.hstatic.net/200000189007/product/xoai_cat_hoa_loc_-_1_kg_a8030c3d93294ffabf301f4059409710_master.jpg",
-    type: "mancau",
-  },
-];
+import axios from "axios";
+import HeaderComponent from "../../components/layout/HeaderComponent/HeaderComponent";
 
 const HomePage = () => {
+  const [fruits, setFruits] = useState([]);
+
+  useEffect(() => {
+    fetchApi();
+  }, []);
+
+  const fetchApi = async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_BE}/product/getAll`);
+      setFruits(res.data.data);
+    } catch (error) {
+      console.error("Error fetching data", error);
+    }
+  };
+
   return (
     <>
+      <HeaderComponent />
       <SliderComponent />
       <div className="mx-24 mr-24">
         <img

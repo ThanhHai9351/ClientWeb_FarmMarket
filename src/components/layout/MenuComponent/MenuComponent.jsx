@@ -1,8 +1,20 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const MenuComponent = () => {
-  const arrItem = ["xoai", "mancau", "Sầu riêng", "Hạt điều"];
+  const [types, setTypes] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BE}/category/getAll`)
+      .then((response) => {
+        setTypes(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <>
       <nav className="bg-white shadow dark:bg-gray-800">
@@ -20,13 +32,13 @@ const MenuComponent = () => {
           >
             product
           </Link>
-          {arrItem.map((item, index) => (
+          {types.map((type) => (
             <Link
-              key={index}
-              to={`/product?type=${item}`}
+              key={type.id}
+              to={`/product?type=${type._id}`}
               className="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 duration-700 mx-1.5 sm:mx-6"
             >
-              {item}
+              {type.name}
             </Link>
           ))}
           <Link
