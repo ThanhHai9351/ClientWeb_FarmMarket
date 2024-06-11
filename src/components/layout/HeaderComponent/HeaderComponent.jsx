@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../images/logo.png";
-import { Link } from "react-router-dom";
+import { images } from "../../constants";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
@@ -12,6 +12,9 @@ import axios from "axios";
 
 const HeaderComponent = () => {
   const [user, setUser] = useState(null);
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+
   useEffect(() => {
     var token = localStorage.getItem("ustoken");
     if (token != null) {
@@ -24,6 +27,9 @@ const HeaderComponent = () => {
     }
   }, []);
 
+  const handleSearchProduct = () => {
+    navigate(`/product?search=${search}`);
+  };
   return (
     <>
       <div className="bg-slate-800 text-center p-2">
@@ -38,7 +44,7 @@ const HeaderComponent = () => {
             <div className="inline-block">
               <img
                 className="w-30 h-20 rounded-xl inline-block"
-                src={logo}
+                src={images.logo}
                 alt="logo"
               />
             </div>
@@ -53,8 +59,12 @@ const HeaderComponent = () => {
               className="w-80 p-1"
               type="text"
               placeholder="Tìm kiếm sản phẩm"
+              onChange={(e) => setSearch(e.target.value)}
             />
-            <button className="mx-4 rounded-lg hover:scale-50 transition-all duration-500">
+            <button
+              onClick={handleSearchProduct}
+              className="mx-4 rounded-lg hover:scale-50 transition-all duration-500"
+            >
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
           </div>
@@ -75,15 +85,25 @@ const HeaderComponent = () => {
                 </button>
               </Link>
             )}
-
-            <Link to="/shoppingcart">
-              <button className="hover:opacity-70 mx-5 p-3 pr-4 px-4 icon-header rounded-3xl">
-                <FontAwesomeIcon
-                  icon={faCartShopping}
-                  className="icon text-lg"
-                />
-              </button>
-            </Link>
+            {user !== null ? (
+              <Link to="/shoppingcart">
+                <button className="hover:opacity-70 mx-5 p-3 pr-4 px-4 icon-header rounded-3xl">
+                  <FontAwesomeIcon
+                    icon={faCartShopping}
+                    className="icon text-lg"
+                  />
+                </button>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <button className="hover:opacity-70 mx-5 p-3 pr-4 px-4 icon-header rounded-3xl">
+                  <FontAwesomeIcon
+                    icon={faCartShopping}
+                    className="icon text-lg"
+                  />
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>

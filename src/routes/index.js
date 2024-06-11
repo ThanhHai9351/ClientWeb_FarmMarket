@@ -6,6 +6,7 @@ import ProductPage from "../pages/ProductPage/ProductPage";
 import DetailPage from "../pages/DetailPage/DetailPage";
 import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
+import ShoppingCartPage from "../pages/ShoppingCartPage/ShoppingCartPage";
 
 export const routes = [
   { path: "/", page: <HomePage />, isShowHeader: false },
@@ -15,6 +16,7 @@ export const routes = [
   { path: "/register", page: <RegisterPage />, isShowHeader: true },
   { path: "/product/detail/:id", page: <DetailPage />, isShowHeader: true },
   { path: "/user/profile", page: <ProfilePage />, isShowHeader: true },
+  { path: "/shoppingcart", page: <ShoppingCartPage />, isShowHeader: true },
   {
     path: "*",
     page: <NotFoundPage />,

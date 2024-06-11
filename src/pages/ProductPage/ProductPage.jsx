@@ -8,12 +8,15 @@ const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const type = searchParams.get("type");
+  const search = searchParams.get("search");
 
   useEffect(() => {
+    document.title = "Sản phẩm";
     const fetchCategory = async () => {
       try {
         const res = await axios.get(
@@ -51,9 +54,21 @@ const ProductPage = () => {
     }
   }, [type, categories]);
 
-  const filteredProducts = type
-    ? products.filter((product) => product.categoryid === type)
-    : products;
+  useEffect(() => {
+    if (search) {
+      setSearchTerm(search);
+    } else {
+      setSearchTerm("");
+    }
+  }, [search]);
+
+  const filteredProducts = products.filter((product) => {
+    const matchesCategory = type ? product.categoryid === type : true;
+    const matchesSearch = searchTerm
+      ? product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      : true;
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <div className="grid grid-cols-4">
@@ -71,7 +86,7 @@ const ProductPage = () => {
       </div>
       <div className="col-span-3 m-2">
         <div>
-          <h6 className="font-medium text-2xl m-5 mx-4 mb-32">
+          <h6 className="font-medium text-2xl m-5 mx-4 mb-8">
             {category ? <p>{category.name}</p> : <p>Tất cả sản phẩm</p>}
           </h6>
         </div>

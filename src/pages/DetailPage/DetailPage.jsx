@@ -5,6 +5,7 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import CardComponent from "../../components/CardComponent/CardComponent";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { formattedPrice } from "../../components/constants";
 
 const DetailPage = () => {
   const [product, setProduct] = useState(null);
@@ -32,13 +33,6 @@ const DetailPage = () => {
     } catch (error) {
       console.error("Error fetching data", error);
     }
-  };
-
-  const formattedPrice = (price) => {
-    return new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND",
-    }).format(price);
   };
 
   return (
