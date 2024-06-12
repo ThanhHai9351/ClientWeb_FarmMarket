@@ -1,3 +1,4 @@
 export default {
   logo: require("../assets/logo.png"),
+  farmer: require("../assets/farmer.jpg"),
 };

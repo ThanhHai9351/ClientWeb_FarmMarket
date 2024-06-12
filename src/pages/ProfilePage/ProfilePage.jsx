@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
+  useEffect(() => {
+    document.title = "Thông tin cá nhân";
+  }, []);
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("ustoken");
@@ -28,9 +31,7 @@ const ProfilePage = () => {
               Đổi thông tin cá nhân
             </Link>
             <Link className="block text-white p-3 mx-5">Shop của bạn</Link>
-            <Link className="block text-white p-3 mx-5">
-              Đổi thông tin cá nhân
-            </Link>
+            <Link className="block text-white p-3 mx-5">Sản phẩm đã mua</Link>
             <button
               onClick={handleLogout}
               className="block text-red-700 p-3 mx-5 font-semibold hover:opacity-40"

@@ -11,8 +11,8 @@ const LoginPage = () => {
     axios
       .post(`${process.env.REACT_APP_BE}/user/login`, { email, password })
       .then((res) => {
-        console.log(res.data.access_token);
         localStorage.setItem("ustoken", res.data.access_token);
+        alert("Đăng nhập thành công");
         navigate("/");
       })
       .catch((err) => {});

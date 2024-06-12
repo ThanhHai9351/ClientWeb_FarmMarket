@@ -9,30 +9,69 @@ import { formattedPrice } from "../../components/constants";
 
 const DetailPage = () => {
   const [product, setProduct] = useState(null);
+  const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_BE}/product/detail/${id}`)
-      .then((res) => {
+    document.title = "Chi tiết sản phẩm";
+    var token = localStorage.getItem("ustoken");
+
+    const getUser = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BE}/user/getUserToken/${token}`
+        );
+        setUser(res.data.data);
+      } catch (error) {
+        console.error("Error fetching data", error);
+      }
+    };
+
+    const getProduct = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BE}/product/detail/${id}`
+        );
         setProduct(res.data.data);
+      } catch (error) {
+        console.error("Error fetching data", error);
+      }
+    };
+
+    const fetchApi = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BE}/product/getAll?limit=5`
+        );
+        setProducts(res.data.data);
+      } catch (error) {
+        console.error("Error fetching data", error);
+      }
+    };
+
+    getProduct();
+    getUser();
+    fetchApi();
+  }, []);
+
+  const handleBuyProduct = () => {
+    const data = {
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+      total: product.price,
+      productid: product._id,
+      userid: user._id,
+    };
+    axios
+      .post(`${process.env.REACT_APP_BE}/shoppingcart/create`, data)
+      .then((response) => {
+        alert("Đã thêm vào giỏ hàng");
       })
       .catch((error) => {
         console.log(error);
       });
-    fetchApi();
-  }, [product]);
-
-  const fetchApi = async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_BE}/product/getAll?limit=5`
-      );
-      setProducts(res.data.data);
-    } catch (error) {
-      console.error("Error fetching data", error);
-    }
   };
 
   return (
@@ -67,12 +106,15 @@ const DetailPage = () => {
               <h6 className="mt-5 font-semibold">Mô tả</h6>
               <p className="mt-2 mb-2">{product.description}</p>
               <hr />
-              <button className="btn-buy border border-red-600 p-3 m-2 rounded-xl  text-red-600 font-medium">
+              <button
+                onClick={handleBuyProduct}
+                className="btn-buy border border-red-600 p-3 m-2 rounded-xl  text-red-600 font-medium"
+              >
                 <FontAwesomeIcon
                   className="icon mr-2 text-red-600"
                   icon={faCartShopping}
                 />{" "}
-                Mua ngay
+                Add to cart
               </button>
             </div>
           </div>
