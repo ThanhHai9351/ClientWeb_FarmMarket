@@ -86,7 +86,7 @@ const HeaderComponent = () => {
               </Link>
             )}
             {user !== null ? (
-              <Link to="/shoppingcart">
+              <Link to="/user/shoppingcart">
                 <button className="hover:opacity-70 mx-5 p-3 pr-4 px-4 icon-header rounded-3xl">
                   <FontAwesomeIcon
                     icon={faCartShopping}

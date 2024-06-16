@@ -107,7 +107,7 @@ const CardShoppingCartComponent = (props) => {
         <div className="col-span-1">
           <button
             onClick={handleDelete}
-            className="px-10 pt-2 font-bold pb-2 pr-10 bg-white rounded-lg text-red-700 border border-red-700 hover:bg-red-700 hover:text-white cursor-pointer transition duration-300"
+            className=" px-10 pt-2 font-bold pb-2 pr-10 bg-white rounded-lg text-red-700 border border-red-700 hover:bg-red-700 hover:text-white cursor-pointer transition duration-300"
           >
             X
           </button>

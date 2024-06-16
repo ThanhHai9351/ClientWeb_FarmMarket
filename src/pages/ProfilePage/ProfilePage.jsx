@@ -1,15 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const ProfilePage = () => {
+  const [user, setUser] = useState(null);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.title = "Thông tin cá nhân";
+
+    const token = localStorage.getItem("ustoken");
+    const getUser = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BE}/user/getUserToken/${token}`
+        );
+        setUser(res.data.data);
+      } catch (error) {
+        console.error("Error fetching user data", error);
+      }
+    };
+    getUser();
   }, []);
-  const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem("ustoken");
     navigate("/");
   };
+
   return (
     <div className="grid grid-cols-5 m-11 border border-r-slate-500">
       <div className="col-span-1">
@@ -22,16 +41,23 @@ const ProfilePage = () => {
               className="inline-block rounded-full  border-gray-300 border-2"
             />
             <p className="inline-block mx-3 font-bold text-white">
-              Hồ Thanh Hải
+              {user && user.name}
             </p>
           </div>
           <hr />
           <div className="p-1">
-            <Link className="block text-white p-3 mx-5">
+            <Link className="block text-white p-3 mx-5 hover:opacity-70">
               Đổi thông tin cá nhân
             </Link>
-            <Link className="block text-white p-3 mx-5">Shop của bạn</Link>
-            <Link className="block text-white p-3 mx-5">Sản phẩm đã mua</Link>
+            <Link className="block text-white p-3 mx-5 hover:opacity-70">
+              Shop của bạn
+            </Link>
+            <Link
+              to="/user/myorder"
+              className="block text-white p-3 mx-5 hover:opacity-70"
+            >
+              Sản phẩm đã mua
+            </Link>
             <button
               onClick={handleLogout}
               className="block text-red-700 p-3 mx-5 font-semibold hover:opacity-40"
@@ -48,39 +74,39 @@ const ProfilePage = () => {
               Name
             </th>
             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300  border-b-2">
-              Hồ Thanh Hải
-            </td>
-          </tr>
-          <tr>
-            <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-              Name
-            </th>
-            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300  border-b-2">
-              Hồ Thanh Hải
-            </td>
-          </tr>
-          <tr>
-            <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-              Name
-            </th>
-            <td className="px-6 py-4 whitespace-no-wrap  border-gray-300  border-b-2">
-              Hồ Thanh Hải
-            </td>
-          </tr>
-          <tr>
-            <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-              Name
-            </th>
-            <td className="px-6 py-4 whitespace-no-wrap border-gray-300  border-b-2">
-              Hồ Thanh Hải
+              {user && user.name}
             </td>
           </tr>
           <tr>
             <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
               Email
             </th>
+            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300  border-b-2">
+              {user && user.email}
+            </td>
+          </tr>
+          <tr>
+            <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+              Phone
+            </th>
+            <td className="px-6 py-4 whitespace-no-wrap  border-gray-300  border-b-2">
+              {user && user.phone}
+            </td>
+          </tr>
+          <tr>
+            <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+              password
+            </th>
+            <td className="px-6 py-4 whitespace-no-wrap border-gray-300  border-b-2">
+              ******
+            </td>
+          </tr>
+          <tr>
+            <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+              Hình thức
+            </th>
             <td className="px-6 py-4 whitespace-no-wrap  border-gray-300  border-b-2 ">
-              Hồ Thanh Hải
+              Khách hàng tiềm năng
             </td>
           </tr>
         </table>

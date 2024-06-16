@@ -7,6 +7,8 @@ import DetailPage from "../pages/DetailPage/DetailPage";
 import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import ShoppingCartPage from "../pages/ShoppingCartPage/ShoppingCartPage";
+import MyOrder from "../pages/MyOrder/MyOrder";
+import DetailOrderPage from "../pages/DetailOrderPage/DetailOrderPage";
 
 export const routes = [
   { path: "/", page: <HomePage />, isShowHeader: false },
@@ -16,7 +18,17 @@ export const routes = [
   { path: "/register", page: <RegisterPage />, isShowHeader: true },
   { path: "/product/detail/:id", page: <DetailPage />, isShowHeader: true },
   { path: "/user/profile", page: <ProfilePage />, isShowHeader: true },
-  { path: "/shoppingcart", page: <ShoppingCartPage />, isShowHeader: true },
+  {
+    path: "/user/shoppingcart",
+    page: <ShoppingCartPage />,
+    isShowHeader: true,
+  },
+  { path: "/user/myorder", page: <MyOrder />, isShowHeader: true },
+  {
+    path: "/user/myorder/detail/:id",
+    page: <DetailOrderPage />,
+    isShowHeader: true,
+  },
   {
     path: "*",
     page: <NotFoundPage />,

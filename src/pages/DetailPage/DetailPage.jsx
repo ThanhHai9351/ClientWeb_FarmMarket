@@ -56,22 +56,26 @@ const DetailPage = () => {
   }, []);
 
   const handleBuyProduct = () => {
-    const data = {
-      name: product.name,
-      price: product.price,
-      quantity: 1,
-      total: product.price,
-      productid: product._id,
-      userid: user._id,
-    };
-    axios
-      .post(`${process.env.REACT_APP_BE}/shoppingcart/create`, data)
-      .then((response) => {
-        alert("Đã thêm vào giỏ hàng");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (user === null) {
+      alert("Bạn chưa đăng nhập!");
+    } else {
+      const data = {
+        name: product.name,
+        price: product.price,
+        quantity: 1,
+        total: product.price,
+        productid: product._id,
+        userid: user._id,
+      };
+      axios
+        .post(`${process.env.REACT_APP_BE}/shoppingcart/create`, data)
+        .then((response) => {
+          alert("Đã thêm vào giỏ hàng");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   return (
@@ -131,7 +135,7 @@ const DetailPage = () => {
           </div>
         </div>
       ) : (
-        <div>Loading</div>
+        ""
       )}
     </>
   );
