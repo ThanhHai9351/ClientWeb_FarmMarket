@@ -61,6 +61,14 @@ const DetailOrderPage = () => {
           <div className="p-3 m-2 border border-gray-600">
             <h6 className="text-xl">Chi tiết sản phẩm:</h6>
             <hr className="mt-2" />
+            <div className="mt-2 grid grid-cols-5 text-center">
+              <div className="col-span-1">#</div>
+              <div className="col-span-1 text-xl font-medium">Tên sản phẩm</div>
+              <div className="col-span-1 text-xl font-medium">Số lượng</div>
+              <div className="col-span-1 text-xl font-medium">Tiền</div>
+              <div className="col-span-1 text-xl font-medium">Tổng tiền</div>
+            </div>
+            <hr className="mt-2" />
             {order.orderItems.map((item) => (
               <ItemCartDetail
                 key={item._id}

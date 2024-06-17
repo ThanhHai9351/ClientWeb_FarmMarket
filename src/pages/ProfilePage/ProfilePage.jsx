@@ -39,6 +39,7 @@ const ProfilePage = () => {
               width={60}
               height={60}
               className="inline-block rounded-full  border-gray-300 border-2"
+              alt=""
             />
             <p className="inline-block mx-3 font-bold text-white">
               {user && user.name}
@@ -71,7 +72,7 @@ const ProfilePage = () => {
         <table className="bg-white w-full">
           <tr>
             <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-              Name
+              Tên
             </th>
             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300  border-b-2">
               {user && user.name}
@@ -87,7 +88,7 @@ const ProfilePage = () => {
           </tr>
           <tr>
             <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-              Phone
+              Số điện thoại
             </th>
             <td className="px-6 py-4 whitespace-no-wrap  border-gray-300  border-b-2">
               {user && user.phone}
@@ -95,7 +96,7 @@ const ProfilePage = () => {
           </tr>
           <tr>
             <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-              password
+              mật khẩu
             </th>
             <td className="px-6 py-4 whitespace-no-wrap border-gray-300  border-b-2">
               ******

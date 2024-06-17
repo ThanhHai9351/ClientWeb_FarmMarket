@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { formattedDate, formattedPrice } from "../../components/constants";
-import { Link } from "react-router-dom";
 import OrderComponent from "../../components/OrderComponent/OrderComponent";
 
 const MyOrder = () => {
@@ -46,7 +44,7 @@ const MyOrder = () => {
   return (
     <div>
       <div className="p-3">
-        <h6 className="text-2xl font-medium m-5">My Order</h6>
+        <h6 className="text-2xl font-medium m-5">Sản phẩm đã đặt</h6>
         {orders === null
           ? "No orders found."
           : orders.map((order) => (
