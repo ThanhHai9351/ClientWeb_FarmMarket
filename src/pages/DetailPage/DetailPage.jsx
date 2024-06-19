@@ -6,6 +6,7 @@ import CardComponent from "../../components/CardComponent/CardComponent";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { formattedPrice } from "../../components/constants";
+import { getUserToken } from "../../services/UserService";
 
 const DetailPage = () => {
   const [product, setProduct] = useState(null);
@@ -17,15 +18,14 @@ const DetailPage = () => {
     document.title = "Chi tiết sản phẩm";
     var token = localStorage.getItem("ustoken");
 
-    const getUser = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_BE}/user/getUserToken/${token}`
-        );
-        setUser(res.data.data);
-      } catch (error) {
-        console.error("Error fetching data", error);
-      }
+    const getUser = () => {
+      getUserToken(token)
+        .then((res) => {
+          setUser(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
 
     const getProduct = async () => {

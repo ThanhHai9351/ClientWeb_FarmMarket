@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from "react";
 import SliderComponent from "../../components/layout/SliderComponent/SliderComponent";
 import CardComponent from "../../components/CardComponent/CardComponent";
-import axios from "axios";
 import HeaderComponent from "../../components/layout/HeaderComponent/HeaderComponent";
 import FooterComponent from "../../components/layout/FooterComponent/FooterComponent";
+import { getAllProducts } from "../../services/ProductService";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     document.title = "Trang chủ";
-    fetchApi();
-  }, []);
 
-  const fetchApi = async () => {
-    try {
-      const res = await axios.get(`${process.env.REACT_APP_BE}/product/getAll`);
-      setProducts(res.data.data);
-    } catch (error) {
-      console.error("Error fetching data", error);
-    }
-  };
+    const getProducts = () => {
+      getAllProducts()
+        .then((res) => {
+          setProducts(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getProducts();
+  }, []);
 
   return (
     <>
@@ -33,9 +34,10 @@ const HomePage = () => {
           alt=""
         />
         <div className="grid grid-cols-5 ">
-          {products.map((product) => (
-            <CardComponent key={product._id} props={product} />
-          ))}
+          {products &&
+            products.map((product) => (
+              <CardComponent key={product._id} props={product} />
+            ))}
         </div>
       </div>
       <FooterComponent />

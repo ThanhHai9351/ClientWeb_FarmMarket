@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getUserToken } from "../../services/UserService";
 import axios from "axios";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
+  const [nsx, setNSX] = useState(null);
 
   const navigate = useNavigate();
 
@@ -11,22 +13,41 @@ const ProfilePage = () => {
     document.title = "Thông tin cá nhân";
 
     const token = localStorage.getItem("ustoken");
-    const getUser = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_BE}/user/getUserToken/${token}`
-        );
-        setUser(res.data.data);
-      } catch (error) {
-        console.error("Error fetching user data", error);
-      }
+    getUserToken(token)
+      .then((res) => {
+        setUser(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    const getNSX = () => {
+      axios
+        .get(`${process.env.REACT_APP_BE}/nsx/getNSXFromUser/${user._id}`)
+        .then((res) => {
+          setNSX(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
-    getUser();
-  }, []);
+
+    if (user != null) {
+      getNSX();
+    }
+  }, [user]);
 
   const handleLogout = () => {
     localStorage.removeItem("ustoken");
     navigate("/");
+  };
+
+  const handleLoginMyShop = () => {
+    if (nsx) {
+      navigate("/user/comfirmshop");
+    } else {
+      navigate("/user/registershop");
+    }
   };
 
   return (
@@ -47,12 +68,18 @@ const ProfilePage = () => {
           </div>
           <hr />
           <div className="p-1">
-            <Link className="block text-white p-3 mx-5 hover:opacity-70">
+            <Link
+              to={user && `/user/profile/edit/${user._id}`}
+              className="block text-white p-3 mx-5 hover:opacity-70"
+            >
               Đổi thông tin cá nhân
             </Link>
-            <Link className="block text-white p-3 mx-5 hover:opacity-70">
+            <button
+              onClick={handleLoginMyShop}
+              className="block text-white p-3 mx-5 hover:opacity-70"
+            >
               Shop của bạn
-            </Link>
+            </button>
             <Link
               to="/user/myorder"
               className="block text-white p-3 mx-5 hover:opacity-70"

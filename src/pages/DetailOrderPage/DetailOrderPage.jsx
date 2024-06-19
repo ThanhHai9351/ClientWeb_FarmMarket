@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { formattedDate, formattedPrice } from "../../components/constants";
-import CardShoppingCartComponent from "../../components/CardShoppingCartComponent/CardShoppingCartComponent";
 import ItemCartDetail from "../../components/ItemCartDetail/ItemCartDetail";
 
 const DetailOrderPage = () => {

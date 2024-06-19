@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import OrderComponent from "../../components/OrderComponent/OrderComponent";
+import { getUserToken } from "../../services/UserService";
+import { getOrderFromUser } from "../../services/OrderService";
 
 const MyOrder = () => {
   const [user, setUser] = useState(null);
@@ -10,15 +11,14 @@ const MyOrder = () => {
   useEffect(() => {
     document.title = "Đơn hàng của tôi";
 
-    const getUser = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_BE}/user/getUserToken/${token}`
-        );
-        setUser(res.data.data);
-      } catch (err) {
-        console.log("Error fetching user data", err);
-      }
+    const getUser = () => {
+      getUserToken(token)
+        .then((res) => {
+          setUser(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
 
     getUser();
@@ -26,17 +26,15 @@ const MyOrder = () => {
 
   useEffect(() => {
     if (user !== null) {
-      const getOrder = async () => {
-        try {
-          const res = await axios.get(
-            `${process.env.REACT_APP_BE}/order/getOrderFromUser/${user._id}`
-          );
-          setOrders(res.data.data);
-        } catch (err) {
-          console.log("Error fetching orders", err);
-        }
+      const getOrder = () => {
+        getOrderFromUser(user._id)
+          .then((res) => {
+            setOrders(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       };
-
       getOrder();
     }
   }, [user]);

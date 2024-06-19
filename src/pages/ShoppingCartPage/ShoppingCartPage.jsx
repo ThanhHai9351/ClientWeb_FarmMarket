@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { formattedPrice } from "../../components/constants";
 import CardShoppingCartComponent from "../../components/CardShoppingCartComponent/CardShoppingCartComponent";
 import ConfirmInfo from "../../components/ConfirmInfo/ConfirmInfo";
-import axios from "axios";
+import { getUserToken } from "../../services/UserService";
+import { getAllShoppingCartFromUser } from "../../services/ShoppingCartService";
 
 const ShoppingCartPage = () => {
   const [itemShoppingCarts, setItemShoppingCarts] = useState([]);
@@ -13,28 +14,24 @@ const ShoppingCartPage = () => {
     document.title = "Giỏ hàng";
     const token = localStorage.getItem("ustoken");
 
-    const getUser = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_BE}/user/getUserToken/${token}`
-        );
-        setUser(res.data.data);
-      } catch (error) {
-        console.error("Error fetching user data", error);
-      }
+    const getUser = () => {
+      getUserToken(token)
+        .then((res) => {
+          setUser(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
 
-    const getShoppingCarts = async (userId) => {
-      try {
-        const params = new URLSearchParams();
-        params.append("userid", userId);
-        const res = await axios.get(
-          `${process.env.REACT_APP_BE}/shoppingcart/getAll?${params.toString()}`
-        );
-        setItemShoppingCarts(res.data.data);
-      } catch (error) {
-        console.error("Error fetching shopping cart data", error);
-      }
+    const getShoppingCarts = (userId) => {
+      getAllShoppingCartFromUser(userId)
+        .then((res) => {
+          setItemShoppingCarts(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
 
     const fetchData = async () => {

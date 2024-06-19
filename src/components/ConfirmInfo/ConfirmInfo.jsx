@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { formattedPrice } from "../constants";
 import axios from "axios";
+import { deleteShoppingCartFromUser } from "../../services/ShoppingCartService";
 
 const ConfirmInfo = (props) => {
   const [taxShip, setTaxShip] = useState(250000);
@@ -43,6 +44,8 @@ const ConfirmInfo = (props) => {
           isPaid: true,
           paidAt: Date.now(),
         };
+
+        deleteShoppingCartFromUser(userid);
 
         axios
           .post(`${process.env.REACT_APP_BE}/order/create`, data)
