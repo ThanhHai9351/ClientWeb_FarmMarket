@@ -11,6 +11,9 @@ import DetailOrderPage from "../pages/DetailOrderPage/DetailOrderPage";
 import EditProfile from "../pages/EditProfile/EditProfile";
 import RegisterShop from "../pages/RegisterShop/RegisterShop";
 import ComfirmShopping from "../pages/ComfirmShopping/ComfirmShopping";
+import HomePageNSX from "../pages/NSX/HomePageNSX/HomePageNSX";
+import ProductNSX from "../pages/NSX/ProductNSX/ProductNSX";
+import OrderNSX from "../pages/NSX/OrderNSX/OrderNSX";
 
 export const routes = [
   { path: "/", page: <HomePage />, isShowHeader: false },
@@ -22,6 +25,9 @@ export const routes = [
   { path: "/user/profile/edit/:id", page: <EditProfile />, isShowHeader: true },
   { path: "/user/comfirmshop", page: <ComfirmShopping />, isShowHeader: true },
   { path: "/user/registershop", page: <RegisterShop />, isShowHeader: true },
+  { path: "/shop", page: <HomePageNSX />, isShowHeader: true },
+  { path: "/shop/product", page: <ProductNSX />, isShowHeader: true },
+  { path: "/shop/order", page: <OrderNSX />, isShowHeader: true },
   {
     path: "/user/shoppingcart",
     page: <ShoppingCartPage />,

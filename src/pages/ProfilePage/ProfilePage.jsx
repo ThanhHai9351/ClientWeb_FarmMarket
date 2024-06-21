@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserToken } from "../../services/UserService";
-import axios from "axios";
+import { getNSXFromUser } from "../../services/NSXService";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -22,10 +22,9 @@ const ProfilePage = () => {
       });
 
     const getNSX = () => {
-      axios
-        .get(`${process.env.REACT_APP_BE}/nsx/getNSXFromUser/${user._id}`)
+      getNSXFromUser(user._id)
         .then((res) => {
-          setNSX(res.data.data);
+          setNSX(res);
         })
         .catch((err) => {
           console.log(err);
@@ -39,6 +38,7 @@ const ProfilePage = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("ustoken");
+    localStorage.removeItem("nsxid");
     navigate("/");
   };
 

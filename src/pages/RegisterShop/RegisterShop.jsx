@@ -1,12 +1,60 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getUserToken } from "../../services/UserService";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const RegisterShop = () => {
+  const [user, setUser] = useState(null);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
+
+  const isvalidData = () => {
+    if (
+      name === "" ||
+      address === "" ||
+      password === "" ||
+      confirmPassword === ""
+    ) {
+      return false;
+    }
+    return true;
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("ustoken");
+    getUserToken(token).then((res) => {
+      setUser(res);
+    });
+  }, []);
+
   const handleRegisterShop = () => {
-    alert(name, address, password, confirmPassword);
+    if (!isvalidData()) {
+      alert("Vui lòng nhập đầy đủ thông tin");
+    }
+    if (password !== confirmPassword) {
+      alert("Mật khẩu không khớp");
+    } else {
+      const data = {
+        name: name,
+        address: address,
+        secretKey: password,
+        userid: user._id,
+      };
+
+      axios
+        .post(`${process.env.REACT_APP_BE}/nsx/create`, data)
+        .then((res) => {
+          alert("Đăng ký cửa hàng thành công");
+          localStorage.setItem("nsxid", res.data.data._id);
+          navigate("/shop");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   return (
     <div className="bg-grey-lighter min-h-screen flex flex-col">
