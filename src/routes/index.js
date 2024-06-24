@@ -14,6 +14,7 @@ import ComfirmShopping from "../pages/ComfirmShopping/ComfirmShopping";
 import HomePageNSX from "../pages/NSX/HomePageNSX/HomePageNSX";
 import ProductNSX from "../pages/NSX/ProductNSX/ProductNSX";
 import OrderNSX from "../pages/NSX/OrderNSX/OrderNSX";
+import ChangePasswordPage from "../pages/ChagePasswordPage/ChangePasswordPage";
 
 export const routes = [
   { path: "/", page: <HomePage />, isShowHeader: false },
@@ -23,6 +24,11 @@ export const routes = [
   { path: "/product/detail/:id", page: <DetailPage />, isShowHeader: true },
   { path: "/user/profile", page: <ProfilePage />, isShowHeader: true },
   { path: "/user/profile/edit/:id", page: <EditProfile />, isShowHeader: true },
+  {
+    path: "/user/profile/changepassword",
+    page: <ChangePasswordPage />,
+    isShowHeader: true,
+  },
   { path: "/user/comfirmshop", page: <ComfirmShopping />, isShowHeader: true },
   { path: "/user/registershop", page: <RegisterShop />, isShowHeader: true },
   { path: "/shop", page: <HomePageNSX />, isShowHeader: true },

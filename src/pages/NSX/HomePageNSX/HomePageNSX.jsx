@@ -1,11 +1,10 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
 import { getNSX } from "../../../services/NSXService";
 import NumOfProduct from "../../../components/NumOfProduct/NumOfProduct";
 import NumOfProductCleanOut from "../../../components/NumOfProductCleanOut/NumOfProductCleanOut";
 import NumOfOrder from "../../../components/NumOfOrder/NumOfOrder";
+import Revenue from "../../../components/Revenue/Revenue";
 
 const HomePageNSX = () => {
   const [nsx, setNsx] = useState(null);
@@ -49,13 +48,19 @@ const HomePageNSX = () => {
           <Link className="block border-b p-2 font-semibold hover:opacity-70 hover:mx-2 duration-300">
             Sửa thông tin Shop
           </Link>
-          <Link className="block border-b p-2 font-semibold hover:opacity-70 hover:mx-2 duration-300">
+          <Link
+            to="/shop/product"
+            className="block border-b p-2 font-semibold hover:opacity-70 hover:mx-2 duration-300"
+          >
             Xem tất cả sản phẩm
           </Link>
           <Link className="block border-b p-2 font-semibold hover:opacity-70 hover:mx-2 duration-300">
             Thêm sản phẩm
           </Link>
-          <Link className="block border-b p-2 font-semibold hover:opacity-70 hover:mx-2 duration-300">
+          <Link
+            to="/shop/order"
+            className="block border-b p-2 font-semibold hover:opacity-70 hover:mx-2 duration-300"
+          >
             Đơn hàng của bạn
           </Link>
           <button
@@ -72,15 +77,7 @@ const HomePageNSX = () => {
             <NumOfProduct />
           </div>
           <div className="col-span-1">
-            <div className="m-3 p-3 bg-yellow-500 h-36 rounded-md grid grid-cols-3  shadow-lg shadow-gray-500">
-              <div className="col-span-2">
-                <h6 className="text-white p-2 text-3xl">Doanh thu bán được</h6>
-                <p className="text-white p-2 text-2xl">90</p>
-              </div>
-              <div className="col-span-1 text-center">
-                <FontAwesomeIcon icon={faBitcoin} className=" h-28" />
-              </div>
-            </div>
+            <Revenue />
           </div>
           <div className="col-span-1">
             <NumOfProductCleanOut />
