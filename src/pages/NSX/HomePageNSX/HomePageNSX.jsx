@@ -45,7 +45,10 @@ const HomePageNSX = () => {
         </div>
         <hr />
         <div>
-          <Link className="block border-b p-2 font-semibold hover:opacity-70 hover:mx-2 duration-300">
+          <Link
+            to="/shop/edit"
+            className="block border-b p-2 font-semibold hover:opacity-70 hover:mx-2 duration-300"
+          >
             Sửa thông tin Shop
           </Link>
           <Link

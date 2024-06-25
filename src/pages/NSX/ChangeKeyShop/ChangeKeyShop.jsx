@@ -1,31 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { getUserToken } from "../../services/UserService";
-import bcrypt from "bcryptjs";
+import { getNSX } from "../../../services/NSXService";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const ChangePasswordPage = () => {
+const ChangeKeyShop = () => {
   const [passwordOld, setPasswordOld] = useState("");
   const [passwordNew, setPasswordNew] = useState("");
   const [confirmPasswordNew, setConfirmPasswordNew] = useState("");
-  const [user, setUser] = useState(null);
+  const [nsx, setNsx] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("ustoken");
-    getUserToken(token)
-      .then((res) => {
-        setUser(res);
+    const nsxid = localStorage.getItem("nsxid");
+    getNSX(nsxid)
+      .then((data) => {
+        setNsx(data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
-  const isvalidPassword = (pass) => {
-    if (bcrypt.compareSync(pass, user.password)) return true;
-    return false;
-  };
 
   const isvalidData = () => {
     if (passwordOld === "" || passwordNew === "" || confirmPasswordNew === "") {
@@ -34,20 +28,24 @@ const ChangePasswordPage = () => {
     return true;
   };
 
+  const isvalidPassword = (pass) => {
+    if (pass === nsx.secretKey) return true;
+    return false;
+  };
+
   const handleChangePassword = () => {
     if (!isvalidData()) {
       alert("Vui lòng nhập đầy đủ thông tin");
     } else if (!isvalidPassword(passwordOld)) {
       alert("Mật khẩu cũ không chính xác");
     } else {
-      const newPass = bcrypt.hashSync(passwordNew, 10);
       axios
-        .put(`${process.env.REACT_APP_BE}/user/update/${user._id}`, {
-          password: newPass,
+        .put(`${process.env.REACT_APP_BE}/nsx/update/${nsx._id}`, {
+          secretKey: passwordNew,
         })
         .then(() => {
           alert("Đổi mật khẩu thành công");
-          navigate("/user/profile");
+          navigate("/shop");
         })
         .catch((err) => {
           console.log(err);
@@ -59,7 +57,7 @@ const ChangePasswordPage = () => {
     <div className="bg-grey-lighter min-h-screen flex flex-col">
       <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
         <div className="bg-white px-6 py-8 rounded shadow-lg text-black w-full">
-          <h1 className="mb-8 text-3xl text-center">ĐỔI MẬT KHẨU</h1>
+          <h1 className="mb-8 text-3xl text-center">ĐỔI MẬT KHẨU CỬA HÀNG</h1>
           <input
             type="password"
             className="block border border-grey-light w-full p-3 rounded mb-4"
@@ -94,4 +92,4 @@ const ChangePasswordPage = () => {
   );
 };
 
-export default ChangePasswordPage;
+export default ChangeKeyShop;

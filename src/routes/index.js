@@ -15,6 +15,8 @@ import HomePageNSX from "../pages/NSX/HomePageNSX/HomePageNSX";
 import ProductNSX from "../pages/NSX/ProductNSX/ProductNSX";
 import OrderNSX from "../pages/NSX/OrderNSX/OrderNSX";
 import ChangePasswordPage from "../pages/ChagePasswordPage/ChangePasswordPage";
+import EditProfileNSX from "../pages/NSX/EditProfileNSX/EditProfileNSX";
+import ChangeKeyShop from "../pages/NSX/ChangeKeyShop/ChangeKeyShop";
 
 export const routes = [
   { path: "/", page: <HomePage />, isShowHeader: false },
@@ -34,6 +36,12 @@ export const routes = [
   { path: "/shop", page: <HomePageNSX />, isShowHeader: true },
   { path: "/shop/product", page: <ProductNSX />, isShowHeader: true },
   { path: "/shop/order", page: <OrderNSX />, isShowHeader: true },
+  { path: "/shop/edit", page: <EditProfileNSX />, isShowHeader: true },
+  {
+    path: "/shop/edit/changepassword",
+    page: <ChangeKeyShop />,
+    isShowHeader: true,
+  },
   {
     path: "/user/shoppingcart",
     page: <ShoppingCartPage />,

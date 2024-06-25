@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { getAllOrder } from "../../../services/OrderService";
-import { formattedPrice } from "../../../components/constants";
+import { formattedDate, formattedPrice } from "../../../components/constants";
 
 const OrderNSX = () => {
   const [orders, setOrders] = useState([]);
@@ -44,6 +44,7 @@ const OrderNSX = () => {
             name: orderItem.name,
             price: orderItem.price,
             quantity: orderItem.quantity,
+            paidAt: order.paidAt,
             id: order._id,
           });
         }
@@ -91,6 +92,12 @@ const OrderNSX = () => {
                         >
                           Số lượng
                         </th>
+                        <th
+                          scope="col"
+                          className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
+                        >
+                          Ngày đặt hàng
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
@@ -112,6 +119,9 @@ const OrderNSX = () => {
                             </td>
                             <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                               {item.quantity}
+                            </td>
+                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              {formattedDate(item.paidAt)}
                             </td>
                           </tr>
                         ))}
