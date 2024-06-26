@@ -16,6 +16,9 @@ const EditProfileNSX = () => {
     getNSX(nsxid)
       .then((data) => {
         setNsx(data);
+        setName(data.name);
+        setLogo(data.logo);
+        setAddress(data.address);
       })
       .catch((err) => {
         console.log(err);
@@ -62,7 +65,7 @@ const EditProfileNSX = () => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   type="text"
-                  placeholder={nsx ? nsx.name : ""}
+                  value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
@@ -76,7 +79,7 @@ const EditProfileNSX = () => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   type="text"
-                  onChange={(e) => setAddress(e.target.value)}
+                  value={address}
                   placeholder={nsx ? nsx.address : ""}
                 />
               </div>
@@ -90,7 +93,7 @@ const EditProfileNSX = () => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   type="text"
-                  onChange={(e) => setLogo(e.target.value)}
+                  value={logo}
                 />
               </div>
             </div>

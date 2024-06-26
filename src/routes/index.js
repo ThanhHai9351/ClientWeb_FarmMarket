@@ -18,6 +18,8 @@ import ChangePasswordPage from "../pages/ChagePasswordPage/ChangePasswordPage";
 import EditProfileNSX from "../pages/NSX/EditProfileNSX/EditProfileNSX";
 import ChangeKeyShop from "../pages/NSX/ChangeKeyShop/ChangeKeyShop";
 import CreateProductNSX from "../pages/NSX/CreateProductNSX/CreateProductNSX";
+import CreateCategoryNSX from "../pages/NSX/CreateCategoryNSX/CreateCategoryNSX";
+import EditProductNSX from "../pages/NSX/EditProductNSX/EditProductNSX";
 
 export const routes = [
   { path: "/", page: <HomePage />, isShowHeader: false },
@@ -38,6 +40,16 @@ export const routes = [
   { path: "/shop/product", page: <ProductNSX />, isShowHeader: true },
   { path: "/shop/order", page: <OrderNSX />, isShowHeader: true },
   { path: "/shop/edit", page: <EditProfileNSX />, isShowHeader: true },
+  {
+    path: "/shop/product/edit/:id",
+    page: <EditProductNSX />,
+    isShowHeader: true,
+  },
+  {
+    path: "/shop/category/create",
+    page: <CreateCategoryNSX />,
+    isShowHeader: true,
+  },
   {
     path: "/shop/product/create",
     page: <CreateProductNSX />,

@@ -14,6 +14,8 @@ const EditProfile = () => {
     getUserToken(token)
       .then((res) => {
         setUser(res);
+        setName(res.name);
+        setPhone(res.phone);
       })
       .catch((err) => {
         console.log(err);
@@ -64,7 +66,7 @@ const EditProfile = () => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   type="text"
-                  placeholder={user ? user.name : ""}
+                  value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
@@ -78,7 +80,7 @@ const EditProfile = () => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   type="text"
-                  placeholder={user ? user.phone : ""}
+                  value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>

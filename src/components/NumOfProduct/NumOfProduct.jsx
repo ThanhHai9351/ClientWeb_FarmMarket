@@ -8,7 +8,7 @@ const NumOfProduct = () => {
   useEffect(() => {
     const nsxid = localStorage.getItem("nsxid");
     axios
-      .get(`${process.env.REACT_APP_BE}/product/getAll?nsxid=${nsxid}`)
+      .get(`${process.env.REACT_APP_BE}/product/getAllProduct?nsxid=${nsxid}`)
       .then((res) => {
         setProducts(res.data.data);
       })
