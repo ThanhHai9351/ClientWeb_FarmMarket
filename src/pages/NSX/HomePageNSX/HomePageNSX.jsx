@@ -57,7 +57,10 @@ const HomePageNSX = () => {
           >
             Xem tất cả sản phẩm
           </Link>
-          <Link className="block border-b p-2 font-semibold hover:opacity-70 hover:mx-2 duration-300">
+          <Link
+            to="/shop/product/create"
+            className="block border-b p-2 font-semibold hover:opacity-70 hover:mx-2 duration-300"
+          >
             Thêm sản phẩm
           </Link>
           <Link
