@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getAllUsers } from "../../services/UserService";
+import { getAllUsers, getUserToken } from "../../services/UserService";
 import bcrypt from "bcryptjs";
 
 const LoginPage = () => {
@@ -22,7 +22,6 @@ const LoginPage = () => {
   const isvalidLogin = (email, pass) => {
     if (users) {
       for (let i = 0; i < users.length; i++) {
-        console.log(users[i].email, users[i].password);
         if (
           users[i].email == email &&
           bcrypt.compareSync(pass, users[i].password)
@@ -36,24 +35,38 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      alert("Email and password are required");
+      alert("Bạn chưa nhập đủ trường thông tin!");
       return;
     }
 
     if (!isvalidLogin(email, password)) {
-      alert("Invalid email or password");
+      alert("Mật khẩu hoặc tài khoản không đúng!");
     } else {
-      try {
-        const res = await axios.post(`${process.env.REACT_APP_BE}/user/login`, {
+      await axios
+        .post(`${process.env.REACT_APP_BE}/user/login`, {
           email,
           password,
+        })
+        .then((res) => {
+          getUserToken(res.data.access_token)
+            .then((data) => {
+              if (data.role === "admin") {
+                localStorage.setItem("rl", "ad");
+                alert("Đăng nhập thành công");
+                navigate("/admin");
+              } else {
+                localStorage.setItem("ustoken", res.data.access_token);
+                alert("Đăng nhập thành công");
+                navigate("/");
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        localStorage.setItem("ustoken", res.data.access_token);
-        alert("Đăng nhập thành công");
-        navigate("/");
-      } catch (err) {
-        alert(err.message);
-      }
     }
   };
 

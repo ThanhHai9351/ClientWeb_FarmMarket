@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { images } from "../../constants";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getNSXFromUser } from "../../../services/NSXService";
+import { getNSX } from "../../../services/NSXService";
 import {
   faMagnifyingGlass,
   faUser,
@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import MenuComponent from "../MenuComponent/MenuComponent";
 import MenuNSXComponent from "../MenuNSXComponent/MenuNSXComponent";
+import MenuAdminComponent from "../MenuAdminComponent/MenuAdminComponent";
 import axios from "axios";
 
 const HeaderComponent = () => {
@@ -19,32 +20,37 @@ const HeaderComponent = () => {
   const navigate = useNavigate();
 
   const nsxid = localStorage.getItem("nsxid");
-
+  const rl = localStorage.getItem("rl");
   useEffect(() => {
-    var token = localStorage.getItem("ustoken");
-    if (token != null) {
+    const token = localStorage.getItem("ustoken");
+    if (token) {
       axios
         .get(`${process.env.REACT_APP_BE}/user/getUserToken/${token}`)
         .then((res) => {
           setUser(res.data.data);
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.error(err);
+        });
     }
+  }, []);
 
-    if (user) {
-      getNSXFromUser(user._id)
+  useEffect(() => {
+    if (user && nsxid) {
+      getNSX(nsxid)
         .then((res) => {
           setNsx(res);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     }
-  }, [user]);
+  }, [user, nsxid]);
 
   const handleSearchProduct = () => {
     navigate(`/product?search=${search}`);
   };
+
   return (
     <>
       <div className="bg-slate-800 text-center p-2">
@@ -54,34 +60,29 @@ const HeaderComponent = () => {
         <p className="mx-20 text-slate-300 inline-block">hotline: 0384631254</p>
       </div>
       <div className="bg-slate-200 grid grid-cols-3 p-3">
-        <div className="inline-block ">
-          {nsxid !== null ? (
-            <Link to="/shop">
-              <div className="inline-block">
-                <img
-                  className="w-30 h-20 rounded-xl inline-block"
-                  src={images.logo}
-                  alt="logo"
-                />
-              </div>
-              <h6 className="inline-block p-3 font-semibold from-neutral-600 text-xl">
-                THariCompany
-              </h6>
-            </Link>
-          ) : (
-            <Link to="/">
-              <div className="inline-block">
-                <img
-                  className="w-30 h-20 rounded-xl inline-block"
-                  src={images.logo}
-                  alt="logo"
-                />
-              </div>
-              <h6 className="inline-block p-3 font-semibold from-neutral-600 text-xl">
-                THariCompany
-              </h6>
-            </Link>
-          )}
+        <div className="inline-block">
+          <Link
+            to={
+              nsx
+                ? "/shop"
+                : user
+                ? user.role === "admin"
+                  ? "/admin"
+                  : "/"
+                : ""
+            }
+          >
+            <div className="inline-block">
+              <img
+                className="w-30 h-20 rounded-xl inline-block"
+                src={images.logo}
+                alt="logo"
+              />
+            </div>
+            <h6 className="inline-block p-3 font-semibold from-neutral-600 text-xl">
+              THariCompany
+            </h6>
+          </Link>
         </div>
         <div className="">
           <div className="w-96 rounded-lg p-2 bg-white mt-5">
@@ -101,15 +102,20 @@ const HeaderComponent = () => {
         </div>
         <div className="">
           <div className="flex justify-end mt-5 mr-7">
-            {user !== null ? (
-              nsxid !== null ? (
+            {user ? (
+              nsxid ? (
                 <p className="opacity-70 p-3 pr-4 px-4 rounded-3xl icon-header bg-slate-400">
                   <FontAwesomeIcon icon={faUser} className="icon text-lg" />
                   <span className="mx-2">{nsx && nsx.name}</span>
                 </p>
+              ) : user.role === "admin" ? (
+                <p className="opacity-70 p-3 pr-4 px-4 rounded-3xl icon-header bg-slate-400">
+                  <FontAwesomeIcon icon={faUser} className="icon text-lg" />
+                  <span className="mx-2">admin</span>
+                </p>
               ) : (
                 <Link to="/user/profile">
-                  <button className=" hover:opacity-70 p-3 pr-4 px-4 rounded-3xl icon-header bg-slate-400">
+                  <button className="hover:opacity-70 p-3 pr-4 px-4 rounded-3xl icon-header bg-slate-400">
                     <FontAwesomeIcon icon={faUser} className="icon text-lg" />
                     <span className="mx-2">{user.name}</span>
                   </button>
@@ -117,13 +123,20 @@ const HeaderComponent = () => {
               )
             ) : (
               <Link to="/login">
-                <button className=" hover:opacity-70 p-3 pr-4 px-4 rounded-3xl icon-header bg-slate-400">
+                <button className="hover:opacity-70 p-3 pr-4 px-4 rounded-3xl icon-header bg-slate-400">
                   <FontAwesomeIcon icon={faUser} className="icon text-lg" />
                 </button>
               </Link>
             )}
-            {user !== null ? (
-              nsxid !== null ? (
+            {user ? (
+              nsxid ? (
+                <p className="opacity-70 mx-5 p-3 pr-4 px-4 icon-header rounded-3xl">
+                  <FontAwesomeIcon
+                    icon={faCartShopping}
+                    className="icon text-lg"
+                  />
+                </p>
+              ) : user.role === "admin" ? (
                 <p className="opacity-70 mx-5 p-3 pr-4 px-4 icon-header rounded-3xl">
                   <FontAwesomeIcon
                     icon={faCartShopping}
@@ -153,7 +166,13 @@ const HeaderComponent = () => {
           </div>
         </div>
       </div>
-      {nsxid ? <MenuNSXComponent /> : <MenuComponent />}
+      {nsx ? (
+        <MenuNSXComponent />
+      ) : rl ? (
+        <MenuAdminComponent />
+      ) : (
+        <MenuComponent />
+      )}
     </>
   );
 };

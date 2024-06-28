@@ -20,6 +20,11 @@ import ChangeKeyShop from "../pages/NSX/ChangeKeyShop/ChangeKeyShop";
 import CreateProductNSX from "../pages/NSX/CreateProductNSX/CreateProductNSX";
 import CreateCategoryNSX from "../pages/NSX/CreateCategoryNSX/CreateCategoryNSX";
 import EditProductNSX from "../pages/NSX/EditProductNSX/EditProductNSX";
+import HomePageAdmin from "../pages/Admin/HomePageAdmin/HomePageAdmin";
+import ProductPageAdmin from "../pages/Admin/ProductPageAdmin/ProductPageAdmin";
+import CategoryPageAdmin from "../pages/Admin/CategoryPageAdmin/CategoryPageAdmin";
+import OrderPageAdmin from "../pages/Admin/OrderPageAdmin/OrderPageAdmin";
+import UserPageAdmin from "../pages/Admin/UserPageAdmin/UserPageAdmin";
 
 export const routes = [
   { path: "/", page: <HomePage />, isShowHeader: false },
@@ -71,6 +76,11 @@ export const routes = [
     page: <DetailOrderPage />,
     isShowHeader: true,
   },
+  { path: "/admin", page: <HomePageAdmin />, isShowHeader: true },
+  { path: "/admin/product", page: <ProductPageAdmin />, isShowHeader: true },
+  { path: "/admin/category", page: <CategoryPageAdmin />, isShowHeader: true },
+  { path: "/admin/order", page: <OrderPageAdmin />, isShowHeader: true },
+  { path: "/admin/user", page: <UserPageAdmin />, isShowHeader: true },
   {
     path: "*",
     page: <NotFoundPage />,
