@@ -23,7 +23,7 @@ const LoginPage = () => {
     if (users) {
       for (let i = 0; i < users.length; i++) {
         if (
-          users[i].email == email &&
+          users[i].email === email &&
           bcrypt.compareSync(pass, users[i].password)
         ) {
           return true;
@@ -73,11 +73,11 @@ const LoginPage = () => {
   return (
     <div className="bg-grey-lighter min-h-screen flex flex-col">
       <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-        <div className="bg-white px-6 py-8 rounded shadow-lg text-black w-full">
+        <div className=" bg-white border border-gray-300 px-6 py-8 rounded-md shadow-gray-500 shadow-lg text-black w-full">
           <h1 className="mb-8 text-3xl text-center">Sign In</h1>
           <input
             type="text"
-            className="block border border-grey-light w-full p-3 rounded mb-4"
+            className="block border border-grey-light w-full p-3 rounded mb-4 bg-slate-300"
             name="email"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
@@ -85,7 +85,7 @@ const LoginPage = () => {
           />
           <input
             type="password"
-            className="block border border-grey-light w-full p-3 rounded mb-4"
+            className="block border border-grey-light w-full p-3 rounded mb-4 bg-slate-300"
             name="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}

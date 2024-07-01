@@ -7,7 +7,7 @@ const CardComponent = (item) => {
 
   return (
     <Link to={`/product/detail/${card._id}`}>
-      <div className="w-56 card-product m-2 p-3">
+      <div className="w-56 card-product m-2 p-3 hover:border-2 border-gray-300 rounded-sm">
         <img className="w-full" src={card.image} alt="" />
         <p className="text-center">{card.name}</p>
         <p className="text-center font-bold">{formattedPrice(card.price)}</p>

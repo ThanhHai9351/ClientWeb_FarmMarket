@@ -25,6 +25,9 @@ import ProductPageAdmin from "../pages/Admin/ProductPageAdmin/ProductPageAdmin";
 import CategoryPageAdmin from "../pages/Admin/CategoryPageAdmin/CategoryPageAdmin";
 import OrderPageAdmin from "../pages/Admin/OrderPageAdmin/OrderPageAdmin";
 import UserPageAdmin from "../pages/Admin/UserPageAdmin/UserPageAdmin";
+import EditProductAdmin from "../pages/Admin/EditProductAdmin/EditProductAdmin";
+import EditCategoryAdmin from "../pages/Admin/EditCategoryAdmin/EditCategoryAdmin";
+import OrderDetailAdmin from "../pages/Admin/OrderDetailAdmin/OrderDetailAdmin";
 
 export const routes = [
   { path: "/", page: <HomePage />, isShowHeader: false },
@@ -81,6 +84,21 @@ export const routes = [
   { path: "/admin/category", page: <CategoryPageAdmin />, isShowHeader: true },
   { path: "/admin/order", page: <OrderPageAdmin />, isShowHeader: true },
   { path: "/admin/user", page: <UserPageAdmin />, isShowHeader: true },
+  {
+    path: "/admin/product/edit/:id",
+    page: <EditProductAdmin />,
+    isShowHeader: true,
+  },
+  {
+    path: "/admin/order/detail/:id",
+    page: <OrderDetailAdmin />,
+    isShowHeader: true,
+  },
+  {
+    path: "/admin/category/edit/:id",
+    page: <EditCategoryAdmin />,
+    isShowHeader: true,
+  },
   {
     path: "*",
     page: <NotFoundPage />,

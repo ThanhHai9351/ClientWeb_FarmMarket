@@ -85,20 +85,24 @@ const HeaderComponent = () => {
           </Link>
         </div>
         <div className="">
-          <div className="w-96 rounded-lg p-2 bg-white mt-5">
-            <input
-              className="w-80 p-1"
-              type="text"
-              placeholder="Tìm kiếm sản phẩm"
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <button
-              onClick={handleSearchProduct}
-              className="mx-4 rounded-lg hover:scale-50 transition-all duration-500"
-            >
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </button>
-          </div>
+          {rl || nsx ? (
+            ""
+          ) : (
+            <div className="w-96 border border-gray-500 rounded-lg p-2 bg-white mt-5 ">
+              <input
+                className="w-80 p-1"
+                type="text"
+                placeholder="Tìm kiếm sản phẩm"
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <button
+                onClick={handleSearchProduct}
+                className="mx-2 rounded-lg  transition-all duration-500"
+              >
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              </button>
+            </div>
+          )}
         </div>
         <div className="">
           <div className="flex justify-end mt-5 mr-7">
