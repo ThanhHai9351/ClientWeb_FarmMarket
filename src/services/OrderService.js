@@ -22,4 +22,16 @@ const getAllOrder = async () => {
   }
 };
 
-export { getOrderFromUser, getAllOrder };
+const getOrderDetail = async (id) => {
+  try {
+    const res = await axios.get(
+      `${process.env.REACT_APP_BE}/order/detail/${id}`
+    );
+    return res.data.data;
+  } catch (err) {
+    console.error("Error fetching user data", err);
+    return null;
+  }
+};
+
+export { getOrderFromUser, getAllOrder, getOrderDetail };

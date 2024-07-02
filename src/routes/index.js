@@ -28,6 +28,7 @@ import UserPageAdmin from "../pages/Admin/UserPageAdmin/UserPageAdmin";
 import EditProductAdmin from "../pages/Admin/EditProductAdmin/EditProductAdmin";
 import EditCategoryAdmin from "../pages/Admin/EditCategoryAdmin/EditCategoryAdmin";
 import OrderDetailAdmin from "../pages/Admin/OrderDetailAdmin/OrderDetailAdmin";
+import CreateUserAdmin from "../pages/Admin/CreateUserAdmin/CreateUserAdmin";
 
 export const routes = [
   { path: "/", page: <HomePage />, isShowHeader: false },
@@ -97,6 +98,11 @@ export const routes = [
   {
     path: "/admin/category/edit/:id",
     page: <EditCategoryAdmin />,
+    isShowHeader: true,
+  },
+  {
+    path: "/admin/user/create",
+    page: <CreateUserAdmin />,
     isShowHeader: true,
   },
   {

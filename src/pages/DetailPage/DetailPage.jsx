@@ -110,16 +110,20 @@ const DetailPage = () => {
               <h6 className="mt-5 font-semibold">Mô tả</h6>
               <p className="mt-2 mb-2">{product.description}</p>
               <hr />
-              <button
-                onClick={handleBuyProduct}
-                className="btn-buy border border-red-600 p-3 m-2 rounded-xl  text-red-600 font-medium"
-              >
-                <FontAwesomeIcon
-                  className="icon mr-2 text-red-600"
-                  icon={faCartShopping}
-                />{" "}
-                Add to cart
-              </button>
+              {product.quantity < 10 ? (
+                <p className="p-3 text-red-700 font-semibold">Hết hàng</p>
+              ) : (
+                <button
+                  onClick={handleBuyProduct}
+                  className="btn-buy border border-red-600 p-3 m-2 rounded-xl  text-red-600 font-medium"
+                >
+                  <FontAwesomeIcon
+                    className="icon mr-2 text-red-600"
+                    icon={faCartShopping}
+                  />{" "}
+                  Add to cart
+                </button>
+              )}
             </div>
           </div>
           <hr />

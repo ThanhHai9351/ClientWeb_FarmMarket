@@ -57,10 +57,8 @@ const OrderPageAdmin = () => {
   };
 
   const handleDeleteOrder = (id) => {
-    const confirmLogout = window.confirm(
-      "Bạn chắc chắn muốn xóa đơn hàng này?"
-    );
-    if (confirmLogout) {
+    const confirm = window.confirm("Bạn chắc chắn muốn xóa đơn hàng này?");
+    if (confirm) {
       axios
         .delete(`${process.env.REACT_APP_BE}/order/delete/${id}`)
         .then(() => {
@@ -94,6 +92,25 @@ const OrderPageAdmin = () => {
       if (users[i]._id === id) return users[i].name;
     }
     return null;
+  };
+
+  const handleUpdateOrder = (id) => {
+    const confirm = window.confirm(
+      "Bạn chắc chắn muốn cập nhật thành trạng thái đã giao?"
+    );
+    if (confirm) {
+      axios
+        .post(`${process.env.REACT_APP_BE}/order/update/${id}`, {
+          isDelivered: true,
+        })
+        .then((res) => {
+          alert("Cập nhật thành công!");
+          getOrders();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -186,7 +203,19 @@ const OrderPageAdmin = () => {
                               {order.isDelivered ? (
                                 <span className="text-green-500">Đã giao</span>
                               ) : (
-                                <span className="text-red-500">Chưa giao</span>
+                                <>
+                                  <span className="text-red-500">
+                                    Chưa giao
+                                  </span>
+                                  <button
+                                    onClick={() => {
+                                      handleUpdateOrder(order._id);
+                                    }}
+                                    className="mx-3 text-green-700 hover:underline duration-300 "
+                                  >
+                                    Cập nhật trạng thái đơn hàng
+                                  </button>
+                                </>
                               )}
                             </td>
                             <td className="py-4 px-6 text-sm font-medium text-center whitespace-nowrap hover:cursor-pointer">

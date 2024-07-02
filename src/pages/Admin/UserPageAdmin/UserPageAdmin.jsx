@@ -46,17 +46,17 @@ const UserPageAdmin = () => {
     const confirmLogout = window.confirm(
       "Bạn chắc chắn muốn xóa sản phẩm này?"
     );
-    /* if (confirmLogout) {
+    if (confirmLogout) {
       axios
-        .delete(`${process.env.REACT_APP_BE}/product/delete/${id}`)
+        .delete(`${process.env.REACT_APP_BE}/user/delete/${id}`)
         .then(() => {
-          alert("Xóa sản phẩm thành công");
-          navigate("/shop/product");
+          alert("Xóa người dùng thành công");
+          getUsers();
         })
         .catch((err) => {
           console.log(err);
         });
-    } */
+    }
   };
 
   const handleSearchUser = () => {
@@ -79,8 +79,18 @@ const UserPageAdmin = () => {
       <div className="p-3">
         <h6 className="text-2xl font-semibold p-3">Quản lý người dùng</h6>
       </div>
-      <div className="flex justify-end mr-3">
-        <div className="w-96 rounded-lg p-2 bg-white mt-5 border border-gray-500">
+      <div className="grid grid-cols-7">
+        <div className="col-span-5">
+          <button
+            onClick={() => {
+              navigate("/admin/user/create");
+            }}
+            className="border border-blue-700 px-3 pr-3 pt-2 pb-2 rounded-lg text-blue-700 mx-4 hover:bg-blue-700 hover:text-white duration-300"
+          >
+            Thêm người dùng
+          </button>
+        </div>
+        <div className="col-span-2 w-96 rounded-lg p-2 bg-white border border-gray-500">
           <input
             className="w-80 p-1"
             type="text"

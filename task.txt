@@ -1,6 +1,3 @@
--xem chi tiết order
--user
 -header phân role authorization BE
--mua thì phải giảm quantity sản phẩm
-- hết hàng thì update hết hàng ở product detail
 - firebase login gg, mailer
+-unittesting, docker build,Jenkins
