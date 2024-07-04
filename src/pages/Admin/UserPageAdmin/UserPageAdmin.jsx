@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { getAllUsers } from "../../../services/UserService";
+import { sendMail } from "../../../services/MailerService";
 
 const UserPageAdmin = () => {
   const [users, setUsers] = useState([]);
@@ -44,13 +45,18 @@ const UserPageAdmin = () => {
 
   const handleDeleteUser = (id) => {
     const confirmLogout = window.confirm(
-      "Bạn chắc chắn muốn xóa sản phẩm này?"
+      "Bạn chắc chắn muốn xóa tài khoản này?"
     );
     if (confirmLogout) {
       axios
         .delete(`${process.env.REACT_APP_BE}/user/delete/${id}`)
         .then(() => {
           alert("Xóa người dùng thành công");
+          sendMail(
+            "haihailua123456@gmail.com",
+            "Tài khoản",
+            "1 tài khoản vừa được xóa với id" + id
+          );
           getUsers();
         })
         .catch((err) => {

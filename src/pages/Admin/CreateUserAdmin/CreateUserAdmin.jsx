@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { sendMail } from "../../../services/MailerService";
 
 const CreateUserAdmin = () => {
   const [name, setName] = useState("");
@@ -44,6 +45,11 @@ const CreateUserAdmin = () => {
         .post(`${process.env.REACT_APP_BE}/user/register`, data)
         .then(() => {
           alert("Tạo tài khoản thành công!");
+          sendMail(
+            "haihailua123456@gmail.com",
+            "Tạo người dùng",
+            "1 tài khoản đã được tạo!"
+          );
           navigate("/admin/user");
         })
         .catch((err) => {

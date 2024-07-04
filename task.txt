@@ -1,3 +1,4 @@
 -header phân role authorization BE
 - firebase login gg, mailer
 -unittesting, docker build,Jenkins
+-upload hình ảnh vào folder access

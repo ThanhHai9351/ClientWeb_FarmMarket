@@ -43,7 +43,8 @@ const OrderDetailAdmin = () => {
         <div>
           <div className="p-5">
             <h5 className="text-2xl font-semibold">
-              Chi tiết đơn hàng #dsfssdsfdff
+              Chi tiết đơn hàng
+              <span> #{order._id}</span>
             </h5>
             <div className="mt-2">
               <span className="text-xl">Thời gian đặt hàng:</span>
