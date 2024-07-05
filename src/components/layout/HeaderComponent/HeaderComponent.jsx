@@ -69,7 +69,7 @@ const HeaderComponent = () => {
                 ? user.role === "admin"
                   ? "/admin"
                   : "/"
-                : ""
+                : "/"
             }
           >
             <div className="inline-block">

@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllUsers, getUserToken } from "../../services/UserService";
 import bcrypt from "bcryptjs";
+import GoogleButton from "react-google-button";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { app } from "../../firebase";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -26,6 +29,17 @@ const LoginPage = () => {
           users[i].email === email &&
           bcrypt.compareSync(pass, users[i].password)
         ) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  const checkAccountGoogle = (email) => {
+    if (users) {
+      for (let i = 0; i < users.length; i++) {
+        if (users[i].email === email) {
           return true;
         }
       }
@@ -70,6 +84,71 @@ const LoginPage = () => {
     }
   };
 
+  const handleLoginGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+    const auth = getAuth(app);
+    auth.languageCode = "it";
+    provider.setCustomParameters({
+      login_hint: "user@example.com",
+    });
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        if (checkAccountGoogle(user.email)) {
+          axios
+            .post(`${process.env.REACT_APP_BE}/user/loginGoogle`, {
+              email: user.email,
+            })
+            .then((res) => {
+              localStorage.setItem("ustoken", res.data.access_token);
+              navigate("/");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          axios
+            .post(`${process.env.REACT_APP_BE}/user/register`, {
+              email: user.email,
+              name: user.displayName,
+              phone: "0",
+              password: "123qwe",
+              confirmPassword: "123qwe",
+              role: "user",
+            })
+            .then(() => {})
+            .catch((error) => {
+              console.log(error);
+            });
+          axios
+            .post(`${process.env.REACT_APP_BE}/user/loginGoogle`, {
+              email: user.email,
+            })
+            .then((res) => {
+              localStorage.setItem("ustoken", res.data.access_token);
+              navigate("/");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.customData.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.error("Error code: " + errorCode);
+        console.error("Error message: " + errorMessage);
+        console.error("Email: " + email);
+        console.error("Credential: " + credential);
+      });
+  };
+
   return (
     <div className="bg-grey-lighter min-h-screen flex flex-col">
       <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
@@ -98,6 +177,14 @@ const LoginPage = () => {
           >
             Sign In
           </button>
+          <hr />
+          <div className="mt-2 mb-2 flex items-center justify-center">
+            <h5 className="text-sm text-grey-100 mr-3">Or:</h5>
+            <div className="">
+              <GoogleButton onClick={handleLoginGoogle} />
+            </div>
+          </div>
+          <hr />
 
           <div className="text-center text-sm text-grey-dark mt-4">
             By signing in, you agree to the
