@@ -1,0 +1,15 @@
+.card-product:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  transition: 0.5s;
+}
+
+.btn-buy:hover {
+  background-color: rgb(220 38 38/var(--tw-text-opacity));
+  color: #fff;
+  opacity: 0.9;
+  transition: 0.3s;
+}
+.btn-buy:hover .icon {
+  color: #fff;
+  transition: 0.3s;
+}/*# sourceMappingURL=style.css.map */
