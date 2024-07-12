@@ -54,10 +54,9 @@ const HeaderComponent = () => {
   return (
     <>
       <div className="bg-slate-800 text-center p-2">
-        <p className="text-slate-300 inline-block">
-          Email: thanhhaihuit2k3@gmail.com
+        <p className="mx-20 text-slate-300 inline-block">
+          Mua mọi thứ tại Bonmera Farm
         </p>
-        <p className="mx-20 text-slate-300 inline-block">hotline: 0384631254</p>
       </div>
       <div className="bg-slate-200 grid grid-cols-3 p-3">
         <div className="inline-block">
@@ -74,13 +73,13 @@ const HeaderComponent = () => {
           >
             <div className="inline-block">
               <img
-                className="w-30 h-20 rounded-xl inline-block"
+                className=" h-20 rounded-md inline-block shadow-lg shadow-gray-700"
                 src={images.logo}
                 alt="logo"
               />
             </div>
             <h6 className="inline-block p-3 font-semibold from-neutral-600 text-xl">
-              THariCompany
+              BONMERA FARM
             </h6>
           </Link>
         </div>

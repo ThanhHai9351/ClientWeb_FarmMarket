@@ -8,7 +8,7 @@ const CreateProductNSX = () => {
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(0);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [category, setCategory] = useState(null);
   const [categories, setCategories] = useState([]);
   const nsxid = localStorage.getItem("nsxid");
@@ -38,7 +38,7 @@ const CreateProductNSX = () => {
     return true;
   };
 
-  const handleCreateProduct = () => {
+  const handleCreateProduct = (e) => {
     if (!isValidData()) {
       alert("Vui lòng nhập đầy đủ thông tin");
     } else {
@@ -46,12 +46,22 @@ const CreateProductNSX = () => {
         name: name,
         price: price,
         description: description,
-        image: image,
+        image: image.name,
         quantity: quantity,
         nearType: category.name,
         categoryid: category._id,
         nsxid: nsxid,
       };
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("image", image);
+
+      axios.post("http://localhost:3001/api/image/uploads", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
       axios
         .post(`${process.env.REACT_APP_BE}/product/create`, data)
         .then(() => {
@@ -71,7 +81,10 @@ const CreateProductNSX = () => {
           <h6 className="font-semibold text-xl">Thêm sản phẩm</h6>
         </div>
         <div>
-          <div className="w-full border border-gray-400 p-3 rounded-md">
+          <form
+            onSubmit={handleCreateProduct}
+            className="w-full border border-gray-400 p-3 rounded-md"
+          >
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
@@ -123,8 +136,10 @@ const CreateProductNSX = () => {
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  type="text"
-                  onChange={(e) => setImage(e.target.value)}
+                  type="file"
+                  accept="image/*"
+                  required
+                  onChange={(e) => setImage(e.target.files[0])}
                 />
               </div>
               <div className="w-full md:w-1/2 px-3 mt-3">
@@ -177,13 +192,13 @@ const CreateProductNSX = () => {
 
             <div className="text-center m-3">
               <button
-                onClick={handleCreateProduct}
+                type="submit"
                 className="bg-white px-5 pr-5 pt-3 pb-3 rounded-lg text-blue-700 font-medium border border-blue-700 hover:bg-blue-700 hover:text-white duration-300"
               >
                 Tạo sản phẩm
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </>

@@ -12,7 +12,6 @@ const EditProductAdmin = () => {
   const [image, setImage] = useState("");
   const [category, setCategory] = useState(null);
   const [categories, setCategories] = useState([]);
-  const nsxid = localStorage.getItem("nsxid");
   const [product, setProduct] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -55,7 +54,7 @@ const EditProductAdmin = () => {
     return true;
   };
 
-  const handleCreateProduct = () => {
+  const handleUpdateProduct = () => {
     if (!isValidData()) {
       alert("Vui lòng nhập đầy đủ thông tin");
     } else {
@@ -67,7 +66,6 @@ const EditProductAdmin = () => {
           description: description,
           image: image,
           quantity: quantity,
-          nsxid: nsxid,
         };
       } else {
         data = {
@@ -78,7 +76,6 @@ const EditProductAdmin = () => {
           quantity: quantity,
           nearType: category.name,
           categoryid: category._id,
-          nsxid: nsxid,
         };
       }
 
@@ -212,7 +209,7 @@ const EditProductAdmin = () => {
 
             <div className="text-center m-3">
               <button
-                onClick={handleCreateProduct}
+                onClick={handleUpdateProduct}
                 className="bg-white px-5 pr-5 pt-3 pb-3 rounded-lg text-yellow-700 font-medium border border-yellow-700 hover:bg-yellow-700 hover:text-white duration-300"
               >
                 Sửa sản phẩm

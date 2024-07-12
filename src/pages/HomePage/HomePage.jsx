@@ -4,6 +4,7 @@ import CardComponent from "../../components/CardComponent/CardComponent";
 import HeaderComponent from "../../components/layout/HeaderComponent/HeaderComponent";
 import FooterComponent from "../../components/layout/FooterComponent/FooterComponent";
 import { getAllProducts } from "../../services/ProductService";
+import AboutMeComponent from "../../components/layout/AboutMeComponent/AboutMeComponent";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -40,6 +41,7 @@ const HomePage = () => {
             ))}
         </div>
       </div>
+      <AboutMeComponent />
       <FooterComponent />
     </>
   );

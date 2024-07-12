@@ -30,7 +30,7 @@ const ItemCartDetail = (props) => {
           <div className="grid grid-cols-5 text-center m-1">
             <div className="col-span-1">
               <img
-                src={product.image}
+                src={`${process.env.REACT_APP_BE}/image/${product.image}`}
                 className="m-auto"
                 width={150}
                 height={150}

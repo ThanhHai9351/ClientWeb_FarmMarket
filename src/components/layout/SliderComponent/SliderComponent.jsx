@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { images } from "../../constants";
+import { Link } from "react-router-dom";
 import $ from "jquery";
 
 function Slider() {
@@ -61,12 +62,12 @@ function Slider() {
               </p>
               <p className="text-3xl font-bold">An toàn vệ sinh thực phẩm</p>
               <p className="text-2xl mb-10 leading-none">Giá cả phải chăng</p>
-              <a
-                href="#"
+              <Link
+                to="/product"
                 className="bg-purple-800 py-4 px-8 text-white font-bold uppercase text-xs rounded hover:bg-gray-200 hover:text-gray-800"
               >
                 Xem ngay
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -78,17 +79,19 @@ function Slider() {
               backgroundImage: `url(${images.saurieng})`,
             }}
           >
-            <p className="font-bold text-sm uppercase">Products</p>
-            <p className="text-3xl font-bold">Hello Customer</p>
-            <p className="text-2xl mb-10 leading-none">
-              Carousel with TailwindCSS and jQuery
+            <p className="font-bold text-sm uppercase">Bonmera Farm</p>
+            <p className="text-3xl font-bold">
+              Sầu riêng thơm ngon chất lượng cao
             </p>
-            <a
-              href="#"
+            <p className="text-2xl mb-10 leading-none">
+              Huyền thoại cà phê và sầu riêng
+            </p>
+            <Link
+              to="/product"
               className="bg-purple-800 py-4 px-8 text-white font-bold uppercase text-xs rounded hover:bg-gray-200 hover:text-gray-800"
             >
-              See All Products
-            </a>
+              Xem tất cả
+            </Link>
           </div>
         </div>
       </div>

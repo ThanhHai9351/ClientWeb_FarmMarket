@@ -86,14 +86,14 @@ const DetailPage = () => {
             <div className="col-span-1">
               <img
                 className="w-24 m-5 border border-slate-900"
-                src={product.image}
+                src={`${process.env.REACT_APP_BE}/image/${product.image}`}
                 alt=""
               />
             </div>
             <div className="col-span-5">
               <img
                 className=" mr-32 border-slate-900"
-                src={product.image}
+                src={`${process.env.REACT_APP_BE}/image/${product.image}`}
                 alt=""
               />
             </div>

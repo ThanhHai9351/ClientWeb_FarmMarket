@@ -45,6 +45,16 @@ const ConfirmInfo = (props) => {
           paidAt: Date.now(),
         };
 
+        data.orderItems.forEach((item) => {
+          axios
+            .post(`${process.env.REACT_APP_BE}/product/updateQuantity`, {
+              quantity: item.quantity,
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
+
         deleteShoppingCartFromUser(userid);
 
         axios

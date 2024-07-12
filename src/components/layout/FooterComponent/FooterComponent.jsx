@@ -60,7 +60,6 @@ const FooterComponent = () => {
 
               <div class="col-span-2 sm:col-span-1">
                 <p class="font-medium text-gray-900">Services</p>
-
                 <ul class="mt-6 space-y-4 text-sm">
                   <li>
                     <a

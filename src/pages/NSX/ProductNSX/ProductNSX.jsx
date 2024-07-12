@@ -10,8 +10,13 @@ const ProductNSX = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
+  const nsxid = localStorage.getItem("nsxid");
+
   useEffect(() => {
-    const nsxid = localStorage.getItem("nsxid");
+    getProducts();
+  }, [page]);
+
+  const getProducts = () => {
     axios
       .get(
         `${process.env.REACT_APP_BE}/product/getAll?nsxid=${nsxid}&page=${
@@ -25,7 +30,7 @@ const ProductNSX = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [page]);
+  };
 
   useEffect(() => {
     getAllCategories()
@@ -59,7 +64,7 @@ const ProductNSX = () => {
         .delete(`${process.env.REACT_APP_BE}/product/delete/${id}`)
         .then(() => {
           alert("Xóa sản phẩm thành công");
-          navigate("/shop/product");
+          getProducts();
         })
         .catch((err) => {
           console.log(err);
