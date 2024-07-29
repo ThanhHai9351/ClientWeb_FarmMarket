@@ -63,7 +63,11 @@ const CardShoppingCartComponent = (props) => {
         <div className="col-span-1">
           <img
             className="border border-gray-400 m-auto"
-            src={product ? product.image : ""}
+            src={
+              product
+                ? `${process.env.REACT_APP_BE}/image/${product.image}`
+                : ""
+            }
             alt={item.name}
             width={120}
             height={120}

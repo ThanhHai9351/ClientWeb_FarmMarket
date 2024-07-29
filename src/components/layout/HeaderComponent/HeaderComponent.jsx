@@ -54,9 +54,7 @@ const HeaderComponent = () => {
   return (
     <>
       <div className="bg-slate-800 text-center p-2">
-        <p className="mx-20 text-slate-300 inline-block">
-          Mua mọi thứ tại Bonmera Farm
-        </p>
+        <p className="mx-20 text-slate-300 inline-block">Bonmera Flatform</p>
       </div>
       <div className="bg-slate-200 grid grid-cols-3 p-3">
         <div className="inline-block">

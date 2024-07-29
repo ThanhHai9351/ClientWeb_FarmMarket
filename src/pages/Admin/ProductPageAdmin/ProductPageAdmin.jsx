@@ -84,7 +84,7 @@ const ProductPageAdmin = () => {
   return (
     <>
       <div className="p-3">
-        <h6 className="text-2xl font-semibold p-3">Sản phẩm của bạn</h6>
+        <h6 className="text-2xl font-semibold p-3">Sản phẩm</h6>
       </div>
       <div className="flex justify-end mr-3">
         <div className="w-96 rounded-lg p-2 bg-white mt-5 border border-gray-500">

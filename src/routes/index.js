@@ -1,34 +1,72 @@
-import HomePage from "../pages/HomePage/HomePage";
-import LoginPage from "../pages/LoginPage/LoginPage";
-import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
-import ProductPage from "../pages/ProductPage/ProductPage";
-import DetailPage from "../pages/DetailPage/DetailPage";
-import RegisterPage from "../pages/RegisterPage/RegisterPage";
-import ProfilePage from "../pages/ProfilePage/ProfilePage";
-import ShoppingCartPage from "../pages/ShoppingCartPage/ShoppingCartPage";
-import MyOrder from "../pages/MyOrder/MyOrder";
-import DetailOrderPage from "../pages/DetailOrderPage/DetailOrderPage";
-import EditProfile from "../pages/EditProfile/EditProfile";
-import RegisterShop from "../pages/RegisterShop/RegisterShop";
-import ComfirmShopping from "../pages/ComfirmShopping/ComfirmShopping";
-import HomePageNSX from "../pages/NSX/HomePageNSX/HomePageNSX";
-import ProductNSX from "../pages/NSX/ProductNSX/ProductNSX";
-import OrderNSX from "../pages/NSX/OrderNSX/OrderNSX";
-import ChangePasswordPage from "../pages/ChagePasswordPage/ChangePasswordPage";
-import EditProfileNSX from "../pages/NSX/EditProfileNSX/EditProfileNSX";
-import ChangeKeyShop from "../pages/NSX/ChangeKeyShop/ChangeKeyShop";
-import CreateProductNSX from "../pages/NSX/CreateProductNSX/CreateProductNSX";
-import CreateCategoryNSX from "../pages/NSX/CreateCategoryNSX/CreateCategoryNSX";
-import EditProductNSX from "../pages/NSX/EditProductNSX/EditProductNSX";
-import HomePageAdmin from "../pages/Admin/HomePageAdmin/HomePageAdmin";
-import ProductPageAdmin from "../pages/Admin/ProductPageAdmin/ProductPageAdmin";
-import CategoryPageAdmin from "../pages/Admin/CategoryPageAdmin/CategoryPageAdmin";
-import OrderPageAdmin from "../pages/Admin/OrderPageAdmin/OrderPageAdmin";
-import UserPageAdmin from "../pages/Admin/UserPageAdmin/UserPageAdmin";
-import EditProductAdmin from "../pages/Admin/EditProductAdmin/EditProductAdmin";
-import EditCategoryAdmin from "../pages/Admin/EditCategoryAdmin/EditCategoryAdmin";
-import OrderDetailAdmin from "../pages/Admin/OrderDetailAdmin/OrderDetailAdmin";
-import CreateUserAdmin from "../pages/Admin/CreateUserAdmin/CreateUserAdmin";
+import { lazy } from "react";
+
+const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
+const LoginPage = lazy(() => import("../pages/LoginPage/LoginPage"));
+const NotFoundPage = lazy(() => import("../pages/NotFoundPage/NotFoundPage"));
+const ProductPage = lazy(() => import("../pages/ProductPage/ProductPage"));
+const DetailPage = lazy(() => import("../pages/DetailPage/DetailPage"));
+const RegisterPage = lazy(() => import("../pages/RegisterPage/RegisterPage"));
+const ProfilePage = lazy(() => import("../pages/ProfilePage/ProfilePage"));
+const ShoppingCartPage = lazy(() =>
+  import("../pages/ShoppingCartPage/ShoppingCartPage")
+);
+const MyOrder = lazy(() => import("../pages/MyOrder/MyOrder"));
+const DetailOrderPage = lazy(() =>
+  import("../pages/DetailOrderPage/DetailOrderPage")
+);
+const EditProfile = lazy(() => import("../pages/EditProfile/EditProfile"));
+const RegisterShop = lazy(() => import("../pages/RegisterShop/RegisterShop"));
+const ComfirmShopping = lazy(() =>
+  import("../pages/ComfirmShopping/ComfirmShopping")
+);
+const HomePageNSX = lazy(() => import("../pages/NSX/HomePageNSX/HomePageNSX"));
+const ProductNSX = lazy(() => import("../pages/NSX/ProductNSX/ProductNSX"));
+const OrderNSX = lazy(() => import("../pages/NSX/OrderNSX/OrderNSX"));
+const ChangePasswordPage = lazy(() =>
+  import("../pages/ChagePasswordPage/ChangePasswordPage")
+);
+const EditProfileNSX = lazy(() =>
+  import("../pages/NSX/EditProfileNSX/EditProfileNSX")
+);
+const ChangeKeyShop = lazy(() =>
+  import("../pages/NSX/ChangeKeyShop/ChangeKeyShop")
+);
+const CreateProductNSX = lazy(() =>
+  import("../pages/NSX/CreateProductNSX/CreateProductNSX")
+);
+const CreateCategoryNSX = lazy(() =>
+  import("../pages/NSX/CreateCategoryNSX/CreateCategoryNSX")
+);
+const EditProductNSX = lazy(() =>
+  import("../pages/NSX/EditProductNSX/EditProductNSX")
+);
+const HomePageAdmin = lazy(() =>
+  import("../pages/Admin/HomePageAdmin/HomePageAdmin")
+);
+const ProductPageAdmin = lazy(() =>
+  import("../pages/Admin/ProductPageAdmin/ProductPageAdmin")
+);
+const CategoryPageAdmin = lazy(() =>
+  import("../pages/Admin/CategoryPageAdmin/CategoryPageAdmin")
+);
+const OrderPageAdmin = lazy(() =>
+  import("../pages/Admin/OrderPageAdmin/OrderPageAdmin")
+);
+const UserPageAdmin = lazy(() =>
+  import("../pages/Admin/UserPageAdmin/UserPageAdmin")
+);
+const EditProductAdmin = lazy(() =>
+  import("../pages/Admin/EditProductAdmin/EditProductAdmin")
+);
+const EditCategoryAdmin = lazy(() =>
+  import("../pages/Admin/EditCategoryAdmin/EditCategoryAdmin")
+);
+const OrderDetailAdmin = lazy(() =>
+  import("../pages/Admin/OrderDetailAdmin/OrderDetailAdmin")
+);
+const CreateUserAdmin = lazy(() =>
+  import("../pages/Admin/CreateUserAdmin/CreateUserAdmin")
+);
 
 export const routes = [
   { path: "/", page: <HomePage />, isShowHeader: false },
@@ -100,14 +138,6 @@ export const routes = [
     page: <EditCategoryAdmin />,
     isShowHeader: true,
   },
-  {
-    path: "/admin/user/create",
-    page: <CreateUserAdmin />,
-    isShowHeader: true,
-  },
-  {
-    path: "*",
-    page: <NotFoundPage />,
-    isShowHeader: false,
-  },
+  { path: "/admin/user/create", page: <CreateUserAdmin />, isShowHeader: true },
+  { path: "*", page: <NotFoundPage />, isShowHeader: false },
 ];
