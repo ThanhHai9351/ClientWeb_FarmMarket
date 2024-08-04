@@ -67,7 +67,7 @@ const ShoppingCartPage = () => {
         ))}
       </div>
       <div className="p-3 grid grid-cols-4">
-        <div className="col-span-3">
+        <div className="col-span-2">
           <span className="mr-2">Total money:</span>
           <span className="text-red-700 font-semibold total-money">
             {formattedPrice(
@@ -78,13 +78,13 @@ const ShoppingCartPage = () => {
             )}
           </span>
         </div>
-        <div className="col-span-1">
+        <div className="col-span-2">
           <span>Hình thức thanh toán: </span>
           <span
             onClick={() => setIsShowConfirmInfo(!isShowConfirmInfo)}
             className="border border-blue-700 px-3 pr-3 pt-2 pb-2 text-white bg-blue-700 rounded-md mx-2 font-medium hover:opacity-70 duration-300 cursor-pointer"
           >
-            VNPAY
+            Chọn hình thức thanh toán
           </span>
         </div>
       </div>

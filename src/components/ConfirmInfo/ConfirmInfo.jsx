@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { formattedPrice } from "../constants";
 import axios from "axios";
 import { deleteShoppingCartFromUser } from "../../services/ShoppingCartService";
@@ -47,9 +47,12 @@ const ConfirmInfo = (props) => {
 
         data.orderItems.forEach((item) => {
           axios
-            .post(`${process.env.REACT_APP_BE}/product/updateQuantity`, {
-              quantity: item.quantity,
-            })
+            .post(
+              `${process.env.REACT_APP_BE}/product/updateQuantity/${item.productid}`,
+              {
+                quantity: item.quantity,
+              }
+            )
             .catch((err) => {
               console.log(err);
             });
@@ -69,6 +72,56 @@ const ConfirmInfo = (props) => {
     }
   };
 
+  const handlePaymentMomo = () => {
+    if (city === "" || district === "" || city === "") {
+      alert("Vui lòng nhập đầy đủ thông tin giao hàng");
+    } else {
+      const confirmDelete = window.confirm(
+        "Are you sure you want to buy this items?"
+      );
+      if (confirmDelete) {
+        const data = {
+          orderItems: item,
+          shippingAddress: {
+            city: city,
+            district: district,
+            street: street,
+          },
+          paymentMethod: "MoMo",
+          taxPrice: taxShip,
+          totalPrice: totalPrice + taxShip,
+          userid: userid,
+          isPaid: true,
+          paidAt: Date.now(),
+        };
+
+        data.orderItems.forEach((item) => {
+          axios
+            .post(
+              `${process.env.REACT_APP_BE}/product/updateQuantity/${item.productid}`,
+              {
+                quantity: item.quantity,
+              }
+            )
+            .catch((err) => {
+              console.log(err);
+            });
+        });
+
+        deleteShoppingCartFromUser(userid);
+
+        axios
+          .post(`${process.env.REACT_APP_BE}/order/create`, data)
+          .then((res) => {
+            paymentMomo(res.data.data._id, totalPrice + taxShip);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }
+  };
+
   const paymentVNPAY = async (orderid, totalPrice) => {
     await axios
       .post(`${process.env.REACT_APP_BE}/payment/create_payment_url`, {
@@ -77,6 +130,19 @@ const ConfirmInfo = (props) => {
       })
       .then((res) => {
         window.location.href = res.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const paymentMomo = async (orderid, totalPrice) => {
+    await axios
+      .post(`${process.env.REACT_APP_BE}/momo/payment`, {
+        money: totalPrice,
+      })
+      .then((res) => {
+        window.location.href = res.data.payUrl;
       })
       .catch((error) => {
         console.log(error);
@@ -122,9 +188,15 @@ const ConfirmInfo = (props) => {
       <div className="p-3">
         <button
           onClick={handlePayment}
+          className="px-3 mr-2 py-3 pt-2 pb-2 border border-blue-700 text-blue-700 rounded-md hover:text-white hover:bg-blue-700 duration-300"
+        >
+          VNPAY
+        </button>
+        <button
+          onClick={handlePaymentMomo}
           className="px-3 py-3 pt-2 pb-2 border border-red-700 text-red-700 rounded-md hover:text-white hover:bg-red-700 duration-300"
         >
-          Thanh toán ngay
+          Momo
         </button>
       </div>
     </>
